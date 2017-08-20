@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_supply_report"
+            android:icon="@drawable/ic_pan_tool_black_24dp"
+            android:title="Submit a Report" />
+        <item
+            android:id="@+id/nav_check_report"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="My Reports" />
+        <item
+            android:id="@+id/nav_watch_data"
+            android:icon="@drawable/ic_assessment_black_24dp"
+            android:title="Water Consumption Data" />
+    </group>
+
+
+
+</menu>

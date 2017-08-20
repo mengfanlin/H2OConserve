@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
+    <ScrollView
+        android:id="@+id/form_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campus"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_campus"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/campus_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/building"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_building"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/building_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/level"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_level"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/level_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/room"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_room"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/room_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editText_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox" />
+
+            <Button
+                android:id="@+id/button_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.mengfanlin.h2oreserve.activities.ModifyReportActivity"
+    tools:showIn="@layout/activity_modify_report">
+
+    <ScrollView
+        android:id="@+id/form_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView_report_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="{Date 17/08/2017}"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campus"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_modify_campus"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/campus_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/building"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_modify_building"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/building_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/level"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_modify_level"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/level_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/room"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_modify_room"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:entries="@array/room_array"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editText_modify_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBox_modify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox" />
+
+            <Button
+                android:id="@+id/button_save_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_marginTop="10dp"/>
+            <Button
+                android:id="@+id/button_delete_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ff6347"
+                android:onClick="Delete the friend"
+                android:text="Delete"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">H2OReserve</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="water_reserve">H2O Reserve</string>
+    <string name="campus">Campus:</string>
+    <string name="building">Building:</string>
+    <string name="level">Level:</string>
+    <string name="room">Room:</string>
+    <string name="checkBox">Agree with using your account information</string>
+
+    <string-array name="campus_array">
+        <item></item>
+        <item>Caulfield</item>
+    </string-array>
+    <string-array name="building_array">
+        <item></item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>H</item>
+        <item>K</item>
+        <item>T</item>
+    </string-array>
+    <string-array name="level_array">
+        <item></item>
+        <item>B</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="room_array">
+        <item></item>
+        <item>101</item>
+        <item>102</item>
+        <item>103</item>
+    </string-array>
+    <string name="title_activity_modify_report">ModifyReportActivity</string>
+</resources>
