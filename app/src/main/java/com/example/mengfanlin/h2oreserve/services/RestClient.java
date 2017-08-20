@@ -18,8 +18,8 @@ import java.util.Scanner;
 public class RestClient {
 
     //private static final String BASE_URI = "http://127.0.0.1:8080/H2OIteration1/webresources";
-    private static final String BASE_URI = "http://10.0.0.49:8080/H2OIteration1/webresources";
-    //private static final String BASE_URI = "http://10.0.2.2:8080/H2OIteration1/webresources";
+    //private static final String BASE_URI = "http://10.0.0.49:8080/H2OIteration1/webresources";
+    private static final String BASE_URI = "http://10.0.2.2:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://54.252.175.242:4848/H2OIteration1/webresources";
 
     public static String addReport(Report report) {
@@ -141,29 +141,29 @@ public class RestClient {
         final String methodPath="/entities.report/" + reportId;
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssXXX").create();
-            String stringReport = gson.toJson(report);
-            Log.e("StringUpdatedReport(REST)", stringReport);
+            String stringReportJson = gson.toJson(report);
             url = new URL(BASE_URI + methodPath);
-            Log.e("URL of update is", url.toString());
+            Log.i("url",url.toString());
+            Log.i("string",stringReportJson);
             //open the connection
             conn = (HttpURLConnection) url.openConnection();
             //set the timeout
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
-            //set the connection method to PUT
+            //set the connection method to POST
             conn.setRequestMethod("PUT");
             //set the output to true
             conn.setDoOutput(true);
             //set length of the data you want to send
-            conn.setFixedLengthStreamingMode(stringReport.getBytes().length);
+            conn.setFixedLengthStreamingMode(stringReportJson.getBytes().length);
             //add HTTP headers
             conn.setRequestProperty("Content-Type", "application/json");
-            Log.e("conn response", String.valueOf(conn.getResponseCode()));
-            //Send the PUT out
-            PrintWriter out = new PrintWriter(conn.getOutputStream());
-            out.print(stringReport);
+            //Send the POST out
+            PrintWriter out= new PrintWriter(conn.getOutputStream());
+            out.print(stringReportJson);
             out.close();
-            return "Updated successful!";
+            Log.i("Received: ",new Integer(conn.getResponseCode()).toString());
+            return "Report has been updated";
         } catch (Exception e) {
             e.printStackTrace();
             return "Failed!";

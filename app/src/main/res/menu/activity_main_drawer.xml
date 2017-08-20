@@ -19,7 +19,4 @@
             android:icon="@drawable/ic_assessment_black_24dp"
             android:title="Water Consumption Data" />
     </group>
-
-//@@@
-
 </menu>
