@@ -12,19 +12,14 @@
         android:background="#dddddd"
         android:orientation="vertical"
         android:padding="10dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="91dp"
-            android:src="@drawable/logo_monash" />
-
+        
         <TextView
             android:id="@+id/text_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="23sp"
             android:layout_gravity="center"
-            android:text="Welcome to H2O Reserve"
+            android:text="Welcome to H2O Conserve"
             android:paddingBottom="20dp"/>
         </LinearLayout>
 

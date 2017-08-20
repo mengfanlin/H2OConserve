@@ -86,27 +86,34 @@ public class CheckReportFragment extends Fragment {
             @Override
             protected void onPostExecute(String response) {
 
-                //int studentId = Integer.parseInt(loggedInStudentId);
-                if (!response.equals("false")){
+                try {
+                    //int studentId = Integer.parseInt(loggedInStudentId);
+                    if (!response.equals("false")) {
 
-                    ArrayList<Report> reports = new ArrayList<>();
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssXXX").create();
-                    reportArrayList = gson.fromJson(response, new TypeToken<ArrayList<Report>>() {}.getType());
+                        ArrayList<Report> reports = new ArrayList<>();
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssXXX").create();
+                        reportArrayList = gson.fromJson(response, new TypeToken<ArrayList<Report>>() {
+                        }.getType());
 
-                    reportAdapter.clear();
+                        reportAdapter.clear();
 
-                    for (Report r : reportArrayList) {
-                        Log.e("",r.toString());
-                        reports.add(r);
+                        for (Report r : reportArrayList) {
+                            Log.e("", r.toString());
+                            reports.add(r);
+                        }
+
+                        Log.e("List of Students", reports.toString());
+                        reportAdapter.addAll(reports);
+                        reportAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast toast = Toast.makeText(getActivity().getApplicationContext(), "failed to display your reports", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
-
-                    Log.e("List of Students",reports.toString());
-                    reportAdapter.addAll(reports);
-                    reportAdapter.notifyDataSetChanged();
-                } else {
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "failed to display your reports", Toast.LENGTH_SHORT);
+                }catch (Exception e) {
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
+
             }
         }.execute("mfl333124@gmail.com"); //TODO use google account
     }

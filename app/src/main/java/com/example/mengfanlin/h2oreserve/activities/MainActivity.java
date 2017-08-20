@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.content_frame, new MainFragment())
                 .commit();
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

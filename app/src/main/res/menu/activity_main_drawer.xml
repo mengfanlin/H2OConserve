@@ -5,11 +5,12 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
+
             android:title="Home" />
         <item
             android:id="@+id/nav_supply_report"
             android:icon="@drawable/ic_pan_tool_black_24dp"
-            android:title="Submit a Report" />
+            android:title="Create Report" />
         <item
             android:id="@+id/nav_check_report"
             android:icon="@drawable/ic_menu_gallery"

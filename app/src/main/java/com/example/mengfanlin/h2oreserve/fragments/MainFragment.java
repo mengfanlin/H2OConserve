@@ -27,8 +27,8 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
 
         viewMain = inflater.inflate(R.layout.fragment_main, container, false);
         welcomeTextView = (TextView) viewMain.findViewById(R.id.text_welcome);
-        getActivity().setTitle("H2O Conservation");
-        welcomeTextView.setText("Welcome to H2O RESERVE!");
+        getActivity().setTitle("H2O CONSERVE");
+        welcomeTextView.setText("Welcome to H2O CONSERVE!");
 
         return viewMain;
     }

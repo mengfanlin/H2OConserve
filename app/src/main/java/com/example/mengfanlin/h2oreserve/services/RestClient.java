@@ -19,8 +19,8 @@ public class RestClient {
 
     //private static final String BASE_URI = "http://127.0.0.1:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://10.0.0.49:8080/H2OIteration1/webresources";
-    private static final String BASE_URI = "http://10.0.2.2:8080/H2OIteration1/webresources";
-    //private static final String BASE_URI = "http://54.252.175.242:4848/H2OIteration1/webresources";
+    //private static final String BASE_URI = "http://10.0.2.2:8080/H2OIteration1/webresources";
+    private static final String BASE_URI = "http://54.252.175.242:8080/H2OIteration1/webresources";
 
     public static String addReport(Report report) {
 
@@ -31,8 +31,8 @@ public class RestClient {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssXXX").create();
             String stringReportJson = gson.toJson(report);
             url = new URL(BASE_URI + methodPath);
-            Log.i("url",url.toString());
-            Log.i("string",stringReportJson);
+            Log.e("url",url.toString());
+            Log.e("CreatedReport json",stringReportJson);
             //open the connection
             conn = (HttpURLConnection) url.openConnection();
             //set the timeout
@@ -51,10 +51,13 @@ public class RestClient {
             out.print(stringReportJson);
             out.close();
             Log.i("Received: ",new Integer(conn.getResponseCode()).toString());
-            return "Report has been added";
+            if (conn.getResponseCode() == 200 || conn.getResponseCode() == 204 )
+                return "Report has been added";
+            else
+                return "Failed";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Failed to ";
+            return "Failed";
         } finally {
             conn.disconnect();
         }
