@@ -2,6 +2,7 @@ package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -147,9 +148,15 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                 protected void onPostExecute(String message) {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT);
                     toast.show();
+                    Fragment fragment = new CheckReportFragment();
+                    FragmentManager fragmentManager = getActivity().getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content_frame, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     //finish();
                     if (!message.equals("Failed to get reports")) {
-                        
+
                     }
 
                 }
@@ -168,4 +175,20 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
 //            Toast.makeText(getActivity(),"Button clicked",Toast.LENGTH_SHORT);
         }
     }
+
+//    public void switchFragment(Fragment fragment) {
+//        try {
+//            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//            if (getFragmentManager().findFragmentById(R.id.home_frame) == null) {
+//                ft.add(R.id.home_frame, fragment);
+//            } else {
+//                ft.replace(R.id.home_frame, fragment);
+//            }
+//            ft.addToBackStack(null);
+//            ft.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

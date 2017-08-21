@@ -128,7 +128,7 @@ public class RestClient {
             //out.print(stringCourseJson);
             out.close();
             Log.i("error",new Integer(conn.getResponseCode()).toString());
-            return "This report has been deleted!";
+            return "This report deleted!";
         } catch (Exception e) {
             e.printStackTrace();
             return "Failed!";
@@ -166,7 +166,7 @@ public class RestClient {
             out.print(stringReportJson);
             out.close();
             Log.i("Received: ",new Integer(conn.getResponseCode()).toString());
-            return "Report has been updated";
+            return "Report edited accordingly";
         } catch (Exception e) {
             e.printStackTrace();
             return "Failed!";
