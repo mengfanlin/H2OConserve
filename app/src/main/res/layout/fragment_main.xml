@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,24 +24,28 @@
             android:paddingBottom="20dp"
             android:paddingTop="20dp"/>
         </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
+
+
+    <LinearLayout
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginLeft="60dp"
-    android:layout_marginTop="100dp">
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Check Report"
-        />
+    android:layout_marginTop="10dp">
+        <ImageButton
+            android:id="@+id/imageButton_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/create_document"
+            />
+        <ImageButton
+            android:id="@+id/imageButton_reports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/documents"
+            />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit Report" />
+
 </LinearLayout>
 
 </LinearLayout>

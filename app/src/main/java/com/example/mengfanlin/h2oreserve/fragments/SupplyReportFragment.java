@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mengfanlin.h2oreserve.R;
+import com.example.mengfanlin.h2oreserve.activities.MainActivity;
 import com.example.mengfanlin.h2oreserve.entities.Report;
 import com.example.mengfanlin.h2oreserve.services.RestClient;
 
@@ -47,7 +49,7 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         viewMain = inflater.inflate(R.layout.fragment_supply_report, container, false);
-        getActivity().setTitle("Report");
+        getActivity().setTitle("Submit Report");
         //Spinners
         spinnerCampus = (Spinner) viewMain.findViewById(R.id.spinner_campus);
         spinnerBuilding = (Spinner) viewMain.findViewById(R.id.spinner_building);
@@ -154,10 +156,12 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                     fragmentTransaction.replace(R.id.content_frame, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-                    //finish();
-                    if (!message.equals("Failed to get reports")) {
-
-                    }
+//                    finish();
+//                    if (!message.equals("Failed to get reports")) {
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                        LayoutInflater inflater = getActivity().getLayoutInflater();
+//                        builder.setView(inflater.inflate(R.layout.dialog_report, null));
+//                    }
 
                 }
             }.execute(report);
@@ -175,20 +179,4 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
 //            Toast.makeText(getActivity(),"Button clicked",Toast.LENGTH_SHORT);
         }
     }
-
-//    public void switchFragment(Fragment fragment) {
-//        try {
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-//            if (getFragmentManager().findFragmentById(R.id.home_frame) == null) {
-//                ft.add(R.id.home_frame, fragment);
-//            } else {
-//                ft.replace(R.id.home_frame, fragment);
-//            }
-//            ft.addToBackStack(null);
-//            ft.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

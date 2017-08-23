@@ -1,14 +1,17 @@
 package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.mengfanlin.h2oreserve.R;
 
@@ -20,6 +23,8 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
 
     private View viewMain;
     private TextView welcomeTextView;
+    private ImageButton imageButtonSubmitReport, imageButtonCheckReports;
+    private NavigationView navigationView;
 
     @Nullable
     @Override
@@ -27,10 +32,41 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
 
         viewMain = inflater.inflate(R.layout.fragment_main, container, false);
         welcomeTextView = (TextView) viewMain.findViewById(R.id.text_welcome);
-        getActivity().setTitle("H2O CONSERVE");
+        navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        getActivity().setTitle("Main Page");
         welcomeTextView.setText("Welcome to H2O CONSERVE!");
-
+        imageButtonSubmitReport = (ImageButton) viewMain.findViewById(R.id.imageButton_submit);
+        imageButtonCheckReports = (ImageButton) viewMain.findViewById(R.id.imageButton_reports);
+        imageButtonCheckReports.setOnClickListener(new onNavigationButtonsClickedListener());
+        imageButtonSubmitReport.setOnClickListener(new onNavigationButtonsClickedListener());
         return viewMain;
+    }
+
+    private class onNavigationButtonsClickedListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            int drawerItemIndex = 0;
+            Fragment fragment = null;
+
+            if (id == R.id.imageButton_submit) {
+                drawerItemIndex = 1;
+                fragment = new SupplyReportFragment();
+            } else if (id == R.id.imageButton_reports) {
+                drawerItemIndex = 2;
+                fragment = new CheckReportFragment();
+            }
+//            else if (id == R.id.button_report) {
+//                drawerItemIndex = 3;
+//                fragment = new ReportFragment();
+//            }
+            navigationView.getMenu().getItem(drawerItemIndex).setChecked(true);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+        }
     }
 
     @Override

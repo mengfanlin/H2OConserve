@@ -49,7 +49,7 @@ public class CheckReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         viewMain = inflater.inflate(R.layout.fragment_check_report, container, false);
-
+        getActivity().setTitle("My Reports");
         reportArrayList = new ArrayList<>();
 
         // Create the adapter to convert the array to views
