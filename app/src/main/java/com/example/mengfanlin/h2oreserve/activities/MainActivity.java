@@ -3,9 +3,6 @@ package com.example.mengfanlin.h2oreserve.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +15,12 @@ import android.view.MenuItem;
 import com.example.mengfanlin.h2oreserve.R;
 import com.example.mengfanlin.h2oreserve.fragments.CheckReportFragment;
 import com.example.mengfanlin.h2oreserve.fragments.MainFragment;
+import com.example.mengfanlin.h2oreserve.fragments.ReportMapFragment;
 import com.example.mengfanlin.h2oreserve.fragments.SupplyReportFragment;
-import com.example.mengfanlin.h2oreserve.fragments.WatchDataFragment;
+
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -90,11 +91,10 @@ public class MainActivity extends AppCompatActivity
             fragment = new MainFragment();
         } else if (id == R.id.nav_supply_report) {
             fragment = new SupplyReportFragment();
-        }
-        else if (id == R.id.nav_check_report) {
+        } else if (id == R.id.nav_my_reports) {
             fragment = new CheckReportFragment();
-        } else if (id == R.id.nav_watch_data){
-            fragment = new WatchDataFragment();
+        } else if (id == R.id.nav_leaks_map){
+            fragment = new ReportMapFragment();
         }
 
         FragmentManager fragmentManager = getFragmentManager();

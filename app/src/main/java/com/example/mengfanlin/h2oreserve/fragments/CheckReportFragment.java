@@ -1,25 +1,20 @@
 package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mengfanlin.h2oreserve.AdapterReport;
+import com.example.mengfanlin.h2oreserve.adapters.AdapterReport;
 import com.example.mengfanlin.h2oreserve.R;
 import com.example.mengfanlin.h2oreserve.activities.ModifyReportActivity;
 import com.example.mengfanlin.h2oreserve.entities.Report;
@@ -29,7 +24,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mengfanlin on 15/08/2017.

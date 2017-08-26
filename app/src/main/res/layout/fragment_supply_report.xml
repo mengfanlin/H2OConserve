@@ -37,7 +37,8 @@
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:entries="@array/building_array"/>
+                android:entries="@array/building_array"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

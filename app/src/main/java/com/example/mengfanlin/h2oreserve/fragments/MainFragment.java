@@ -2,6 +2,7 @@ package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,7 +23,7 @@ import com.example.mengfanlin.h2oreserve.R;
 public class MainFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private View viewMain;
-    private TextView welcomeTextView;
+    //private TextView welcomeTextView;
     private ImageButton imageButtonSubmitReport, imageButtonCheckReports;
     private NavigationView navigationView;
 
@@ -31,10 +32,10 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         viewMain = inflater.inflate(R.layout.fragment_main, container, false);
-        welcomeTextView = (TextView) viewMain.findViewById(R.id.text_welcome);
+        //welcomeTextView = (TextView) viewMain.findViewById(R.id.text_welcome);
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         getActivity().setTitle("Main Page");
-        welcomeTextView.setText("Welcome to H2O CONSERVE!");
+        //welcomeTextView.setText("Welcome to H2O CONSERVE!");
         imageButtonSubmitReport = (ImageButton) viewMain.findViewById(R.id.imageButton_submit);
         imageButtonCheckReports = (ImageButton) viewMain.findViewById(R.id.imageButton_reports);
         imageButtonCheckReports.setOnClickListener(new onNavigationButtonsClickedListener());
@@ -49,6 +50,7 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
             int id = v.getId();
             int drawerItemIndex = 0;
             Fragment fragment = null;
+            //final MediaPlayer mp = MediaPlayer.create(this, R.raw.waterdrop);
 
             if (id == R.id.imageButton_submit) {
                 drawerItemIndex = 1;

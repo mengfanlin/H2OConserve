@@ -1,4 +1,4 @@
-package com.example.mengfanlin.h2oreserve;
+package com.example.mengfanlin.h2oreserve.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.mengfanlin.h2oreserve.R;
 import com.example.mengfanlin.h2oreserve.entities.Report;
 
 import java.text.DateFormat;

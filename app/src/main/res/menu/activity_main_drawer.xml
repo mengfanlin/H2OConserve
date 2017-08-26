@@ -12,12 +12,14 @@
             android:icon="@drawable/ic_pan_tool_black_24dp"
             android:title="Create Report" />
         <item
-            android:id="@+id/nav_check_report"
+            android:id="@+id/nav_my_reports"
             android:icon="@drawable/ic_menu_gallery"
             android:title="My Reports" />
         <item
-            android:id="@+id/nav_watch_data"
+            android:id="@+id/nav_leaks_map"
             android:icon="@drawable/ic_assessment_black_24dp"
-            android:title="Water Consumption Data" />
+            android:title="Check All Leaks" />
+
+
     </group>
 </menu>
