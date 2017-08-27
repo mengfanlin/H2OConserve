@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#6fb7ff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,6 +43,7 @@
                 app:srcCompat="@drawable/view_report_shot" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,8 +75,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
-
 </LinearLayout>
