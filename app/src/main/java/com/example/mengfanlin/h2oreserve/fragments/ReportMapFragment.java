@@ -63,12 +63,17 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onMapReady(GoogleMap googleMap) {
        // MapsInitializer.initialize(getContext());
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mGoogleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         LatLng sydney = new LatLng(-33.852, 151.211);
 
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney").snippet("I hope to go there"));
+        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney")); //.snippet("I hope to go there")
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 //        map = googleMap;
