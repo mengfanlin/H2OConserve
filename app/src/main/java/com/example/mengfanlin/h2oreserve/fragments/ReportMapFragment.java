@@ -86,21 +86,29 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback{
         LatLng leak1 = new LatLng(-37.876651, 145.045153);
         LatLng leak2 = new LatLng(-37.877625, 145.045193);
         LatLng leak3 = new LatLng(-37.878132, 145.045078);
+        LatLng leak4 = new LatLng(-37.877878, 145.046900);
+
 
         googleMap.addMarker(new MarkerOptions().position(leak1)
-                .title("Leak in Building K").snippet("K234")
+                .title("A leak in Building K").snippet("K234")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         googleMap.addMarker(new MarkerOptions().position(leak2)
-                .title("Leak in Building B").snippet("B110")
+                .title("A leak in Building B").snippet("B110")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         googleMap.addMarker(new MarkerOptions().position(leak3)
-                .title("Leak in Building K").snippet("T301")
+                .title("A leak in Building T").snippet("T301")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        googleMap.addMarker(new MarkerOptions().position(leak4)
+                .title("A water leak in Building D").snippet("D101")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(leak1);
         builder.include(leak2);
         builder.include(leak3);
+        builder.include(leak4);
         LatLngBounds bounds = builder.build();
 
         int padding = 300; // offset from edges of the map in pixels
