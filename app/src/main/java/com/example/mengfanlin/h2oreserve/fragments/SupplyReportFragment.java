@@ -14,8 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,6 +30,8 @@ import com.example.mengfanlin.h2oreserve.activities.MainActivity;
 import com.example.mengfanlin.h2oreserve.entities.Report;
 import com.example.mengfanlin.h2oreserve.services.RestClient;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 
 /**
@@ -37,10 +41,10 @@ import java.util.Calendar;
 public class SupplyReportFragment extends Fragment implements View.OnClickListener{
 
     private View viewMain;
-    private Spinner spinnerCampus, spinnerBuilding, spinnerLevel, spinnerRoom;
+    private Spinner spinnerCampus, spinnerBuilding, spinnerLevel;
     private Button buttonSubmit;
-    private CheckBox checkBox;
-    private EditText editTextDescription;
+    //private CheckBox checkBox;
+    private EditText editTextDescription, editTextRoom;
 
 
 
@@ -54,16 +58,27 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         spinnerCampus = (Spinner) viewMain.findViewById(R.id.spinner_campus);
         spinnerBuilding = (Spinner) viewMain.findViewById(R.id.spinner_building);
         spinnerLevel = (Spinner) viewMain.findViewById(R.id.spinner_level);
-        spinnerRoom = (Spinner) viewMain.findViewById(R.id.spinner_room);
+        editTextRoom = (EditText) viewMain.findViewById(R.id.editText_room);
 
         //EditText
         editTextDescription = (EditText) viewMain.findViewById(R.id.editText_description);
         //CheckBox
-        checkBox = (CheckBox) viewMain.findViewById(R.id.checkBox);
+        //checkBox = (CheckBox) viewMain.findViewById(R.id.checkBox);
         //Button
         buttonSubmit = (Button) viewMain.findViewById(R.id.button_submit);
         //Set listener on button submit
         buttonSubmit.setOnClickListener(this);
+
+        View view = getActivity().getCurrentFocus();
+        try {
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return viewMain;
     }
 
@@ -78,14 +93,15 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         String campus = spinnerCampus.getSelectedItem().toString();
         String building = spinnerBuilding.getSelectedItem().toString();
         String level = spinnerLevel.getSelectedItem().toString();
-        String room = spinnerRoom.getSelectedItem().toString();
+        String room = editTextRoom.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
         // Reset errors
         ((TextView) spinnerCampus.getSelectedView()).setError(null);
         ((TextView) spinnerBuilding.getSelectedView()).setError(null);
         ((TextView) spinnerLevel.getSelectedView()).setError(null);
-        ((TextView) spinnerRoom.getSelectedView()).setError(null);
-        checkBox.setError(null);
+        editTextRoom.setError(null);
+        editTextDescription.setError(null);
+        //checkBox.setError(null);
         buttonSubmit.setError(null);
 
         //Validation
@@ -96,6 +112,11 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         if (TextUtils.isEmpty(description)) {
             editTextDescription.setError("This field is required!");
             focusView = editTextDescription;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(description)) {
+            editTextRoom.setError("This field is required!");
+            focusView = editTextRoom;
             cancel = true;
         }
 
@@ -117,12 +138,6 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
             focusView = spinnerLevel;
             cancel = true;
         }
-        // Check for a spinner
-        if (spinnerRoom.getSelectedItem().toString().trim().equals("")) {
-            ((TextView)spinnerRoom.getSelectedView()).setError("This field is required!");
-            focusView = spinnerRoom;
-            cancel = true;
-        }
 
         if (cancel) {
             // There was an error; don't attempt submitting report and focus the first form field with an error
@@ -134,12 +149,9 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
             report.setLevel(level);
             report.setRoom(room);
             report.setDescription(description);
-            report.setDate(Calendar.getInstance().getTime());
-            report.setUser("mfl333124@gmail.com");
-            Log.e("CreatedReport", report.toString());
+            Log.e("Set values to report", report.toString());
 
             new AsyncTask<Report, Void, String>(){
-
                 @Override
                 protected String doInBackground(Report...params) {
                     String message = RestClient.addReport(params[0]);

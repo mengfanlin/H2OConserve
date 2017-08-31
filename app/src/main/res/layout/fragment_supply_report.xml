@@ -13,24 +13,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:layout_marginTop="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/campus"
-                android:textSize="18sp" />
-
+                android:textSize="20sp"
+                android:paddingLeft="5dp"
+                />
             <Spinner
                 android:id="@+id/spinner_campus"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:entries="@array/campus_array"/>
+                android:entries="@array/campus_array"
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/building"
-                android:textSize="18sp" />
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"/>
 
             <Spinner
                 android:id="@+id/spinner_building"
@@ -38,36 +44,55 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:entries="@array/building_array"
+                android:layout_marginTop="5dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/level"
-                android:textSize="18sp" />
-
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"/>
             <Spinner
                 android:id="@+id/spinner_level"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:entries="@array/level_array"/>
+                android:entries="@array/level_array"
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/room"
-                android:textSize="18sp" />
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                />
 
-            <Spinner
-                android:id="@+id/spinner_room"
-                android:layout_width="195dp"
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<android.support.design.widget.TextInputEditText-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="Building"/>-->
+
+            <!--</android.support.design.widget.TextInputLayout>-->
+
+            <EditText
+                android:id="@+id/editText_room"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:entries="@array/room_array"/>
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description:"
-                android:textSize="18sp" />
+                android:textSize="20sp"
+                android:paddingLeft="5dp"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/editText_description"
@@ -75,18 +100,20 @@
                 android:layout_height="wrap_content"
                 />
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/checkBox" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/checkBox"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/checkBox" />-->
 
             <Button
                 android:id="@+id/button_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit"
-                android:layout_marginTop="10dp"/>
+                android:textSize="18dp"
+                android:layout_marginTop="30dp"
+                android:background="#5ac7fa"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

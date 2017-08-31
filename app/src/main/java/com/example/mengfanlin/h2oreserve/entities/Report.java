@@ -9,17 +9,18 @@ import java.util.Date;
 
 public class Report implements Serializable {
     public Integer id;
-    public String user;
     public String campus;
     public String building;
     public String level;
     public String room;
     public Date date;
     public String description;
+    public String status;
 
-    public Report(Integer id, String user, String campus, String building, String level, String room, String description, Date date) {
+    //default constructor
+    public Report(Integer id, String campus, String building, String level, String room, String description, Date date, String status) {
         this.id = id;
-        this.user = user;
+        this.status = status;
         this.campus = campus;
         this.building = building;
         this.level = level;
@@ -28,18 +29,26 @@ public class Report implements Serializable {
         this.date = date;
     }
 
-    public Report(String user, String campus, String building, String level, String room, String description, Date date) {
-        this.user = user;
+    //constructor for creating report
+    public Report(String campus, String building, String level, String room, String description) {
         this.campus = campus;
         this.building = building;
         this.level = level;
         this.room = room;
         this.description = description;
-        this.date = date;
+    }
+
+    //constructor for modifying report
+    public Report(Integer id, String campus, String building, String level, String room, String description) {
+        this.id = id;
+        this.campus = campus;
+        this.building = building;
+        this.level = level;
+        this.room = room;
+        this.description = description;
     }
 
     public Report() {
-
     }
 
     public Integer getId() {
@@ -50,12 +59,12 @@ public class Report implements Serializable {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getStatus() {
+        return status;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getCampus() {
@@ -110,12 +119,13 @@ public class Report implements Serializable {
     public String toString() {
         return "Report{" +
                 "id=" + id +
-                ", user='" + user + '\'' +
                 ", campus='" + campus + '\'' +
                 ", building='" + building + '\'' +
                 ", level='" + level + '\'' +
                 ", room='" + room + '\'' +
-                ", date='" + date + '\'' +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

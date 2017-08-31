@@ -3,29 +3,29 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView_location"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="{Building} {H} {238}"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:textSize="18dp"/>
-        <TextView
-            android:id="@+id/textView_date"
-            android:text="{Submitted date}"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:padding="20dp"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView_location"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="{Building} {H} {238}"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:textSize="18dp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:id="@+id/textView_date"
+                android:text="{Submitted date}"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
 </LinearLayout>

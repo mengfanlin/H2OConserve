@@ -20,11 +20,13 @@ public class RestClient {
     //private static final String BASE_URI = "http://127.0.0.1:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://10.0.0.49:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://10.0.2.2:8080/H2OIteration1/webresources";
-    private static final String BASE_URI = "http://54.252.175.242:8080/H2OIteration1/webresources";
+    //private static final String BASE_URI = "http://54.252.175.242:8080/H2OIteration1/webresources";
+    private static final String BASE_URI = "http://54.153.145.68/api/reports";
 
     public static String addReport(Report report) {
 
         URL url;
+        String textResult = "";
         HttpURLConnection conn = null;
         final String methodPath="/entities.report/";
         try {
@@ -46,18 +48,29 @@ public class RestClient {
             conn.setFixedLengthStreamingMode(stringReportJson.getBytes().length);
             //add HTTP headers
             conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
             //Send the POST out
             PrintWriter out= new PrintWriter(conn.getOutputStream());
             out.print(stringReportJson);
             out.close();
+            conn.connect();
+            Scanner inStream = new Scanner(conn.getInputStream());
+            //read the input stream and store it as string
+
+            while (inStream.hasNextLine()) {
+                textResult += inStream.nextLine();
+            }
+            Log.e("Response should include PK",textResult);
+
             Log.i("Received: ",new Integer(conn.getResponseCode()).toString());
             if (conn.getResponseCode() == 200 || conn.getResponseCode() == 204 )
                 return "Report has been added";
             else
-                return "Failed";
+                return "Failed by connection problem";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Failed";
+            return "Failed due to exception";
         } finally {
             conn.disconnect();
         }
@@ -67,7 +80,7 @@ public class RestClient {
         URL url;
         HttpURLConnection conn = null;
         String textResult = "";
-        final String methodPath="/entities.report/findallreports/" + userId;
+        final String methodPath= "/entities.report/findallreports/" + userId;
 
         try {
             url = new URL(BASE_URI + methodPath);
@@ -81,6 +94,7 @@ public class RestClient {
             //add http headers to set your response type to json
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.connect(); // Last added
             //Read the response
             Scanner inStream = new Scanner(conn.getInputStream());
             //read the input stream and store it as string
@@ -89,13 +103,15 @@ public class RestClient {
             }
             Log.e("conn response", String.valueOf(conn.getResponseCode()));
             Log.e("textResult", textResult);
+            conn.disconnect();
             if (conn.getResponseCode() != 200)
-                return "Failed to get reports";
+                return "Failed to get reports due to response code is not 200";
             else
                 return textResult;
+
         } catch (Exception e) {
             e.printStackTrace();
-            return "Failed to get reports";
+            return "Failed to get reports due to exceptions";
         } finally {
             conn.disconnect();
         }
@@ -127,8 +143,10 @@ public class RestClient {
             PrintWriter out = new PrintWriter(conn.getOutputStream());
             //out.print(stringCourseJson);
             out.close();
-            Log.i("error",new Integer(conn.getResponseCode()).toString());
-            return "This report deleted!";
+            if (conn.getResponseCode() == 200 || conn.getResponseCode() == 204)
+                return "This report has been deleted!";
+            else
+                return "Failed due to network problem";
         } catch (Exception e) {
             e.printStackTrace();
             return "Failed!";
@@ -141,6 +159,7 @@ public class RestClient {
         //initialise
         URL url;
         HttpURLConnection conn = null;
+        String textResult = "";
         final String methodPath="/entities.report/" + reportId;
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssXXX").create();
@@ -164,8 +183,17 @@ public class RestClient {
             //Send the POST out
             PrintWriter out= new PrintWriter(conn.getOutputStream());
             out.print(stringReportJson);
+
             out.close();
-            Log.i("Received: ",new Integer(conn.getResponseCode()).toString());
+            conn.connect();
+            Scanner inStream = new Scanner(conn.getInputStream());
+            //read the input stream and store it as string
+            while (inStream.hasNextLine()) {
+                textResult += inStream.nextLine();
+            }
+            Log.e("Response should include PK(update)",textResult);
+
+            Log.i("Received code(update): ",new Integer(conn.getResponseCode()).toString());
             return "Report edited accordingly";
         } catch (Exception e) {
             e.printStackTrace();

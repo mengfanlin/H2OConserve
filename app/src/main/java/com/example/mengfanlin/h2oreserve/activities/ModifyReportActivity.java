@@ -101,7 +101,7 @@ public class ModifyReportActivity extends AppCompatActivity {
         setValueToSpinner(chosenReport.getRoom(),spinnerRoom);
         editTextDescription.setText(chosenReport.getDescription());
         String date = sf.format(chosenReport.getDate());
-        textViewReportDate.setText("Submitted Date: " + date);
+        textViewReportDate.setText("Last Modification Date: " + date);
 
     }
 
@@ -130,6 +130,9 @@ public class ModifyReportActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String message) {
+                if (message.equals("This report has been deleted!")) {
+                    //TODO delete in SQLite
+                }
                 Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                 toast.show();
                 finish();
@@ -197,24 +200,26 @@ public class ModifyReportActivity extends AppCompatActivity {
             // There was an error; don't attempt submitting report and focus the first form field with an error
             focusView.requestFocus();
         } else {
-            modifiedReport = new Report();
-            modifiedReport.setCampus(campus);
-            modifiedReport.setBuilding(building);
-            modifiedReport.setLevel(level);
-            modifiedReport.setRoom(room);
-            modifiedReport.setDescription(description);
-            modifiedReport.setDate(Calendar.getInstance().getTime());
-            modifiedReport.setUser("mfl333124@gmail.com");
-            modifiedReport.setId(reportId);
+//            modifiedReport = new Report();
+//            modifiedReport.setCampus(campus);
+//            modifiedReport.setBuilding(building);
+//            modifiedReport.setLevel(level);
+//            modifiedReport.setRoom(room);
+//            modifiedReport.setDescription(description);
+////            modifiedReport.setDate(Calendar.getInstance().getTime());
+////            modifiedReport.setUser("mfl333124@gmail.com");
+//            modifiedReport.setId(reportId);
 
-            final Report editedReport = new Report(reportId, "mfl333124@gmail.com", campus, building, level, room, description,Calendar.getInstance().getTime());
-            Log.e("modifiedReport", modifiedReport.toString());
+            final Report editedReport = new Report(reportId, campus, building, level, room, description);
+            //TODO Validation for modifying the report that has been marked finished.
+            //Log.e("modifiedReport", modifiedReport.toString());
 
             new AsyncTask<Report, Void, String>(){
 
                 @Override
                 protected String doInBackground(Report...params) {
-                    Log.e("BeforeTransferModifiedReport", modifiedReport.toString());
+                    //Log.e("BeforeTransferModifiedReport", modifiedReport.toString());
+                    Log.e("BeforeTransferEditedReport", editedReport.toString());
                     String message = RestClient.updateReport(editedReport,reportId);
                     return message;
                 }

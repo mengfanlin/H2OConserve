@@ -1,6 +1,7 @@
 package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -62,11 +64,24 @@ public class CheckReportFragment extends Fragment {
             }
         });
 
+        View view = getActivity().getCurrentFocus();
+        try {
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return viewMain;
     }
 
 
     public void displayAllReports() {
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        ids.add(1);
+
         new AsyncTask<String, Void, String>() {
 
             @Override
@@ -92,7 +107,6 @@ public class CheckReportFragment extends Fragment {
                         reportAdapter.clear();
 
                         for (Report r : reportArrayList) {
-                            Log.e("", r.toString());
                             reports.add(r);
                         }
 
@@ -109,7 +123,7 @@ public class CheckReportFragment extends Fragment {
                 }
 
             }
-        }.execute("mfl333124@gmail.com"); //TODO use google account
+        }.execute("mfl333124@gmail.com"); //TODO use SQLite info
     }
 
     @Override
