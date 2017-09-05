@@ -41,6 +41,7 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
         imageButtonCheckLeaksOnMap = (ImageButton) viewMain.findViewById(R.id.imageButton_view_leaks);
         imageButtonCheckReports.setOnClickListener(new onNavigationButtonsClickedListener());
         imageButtonSubmitReport.setOnClickListener(new onNavigationButtonsClickedListener());
+        imageButtonCheckLeaksOnMap.setOnClickListener(new onNavigationButtonsClickedListener());
         return viewMain;
     }
 
@@ -52,7 +53,6 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
             int drawerItemIndex = 0;
             Fragment fragment = null;
             //final MediaPlayer mp = MediaPlayer.create(this, R.raw.waterdrop);
-
             if (id == R.id.imageButton_submit) {
                 drawerItemIndex = 1;
                 fragment = new SupplyReportFragment();
@@ -76,4 +76,7 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
+
+
+
 }

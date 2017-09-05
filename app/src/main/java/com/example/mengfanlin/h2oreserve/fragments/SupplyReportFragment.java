@@ -104,6 +104,10 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         buttonSubmit.setOnClickListener(this);
         buttonTakePhoto.setOnClickListener(this);
 
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment toFragment = new MainFragment();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, toFragment).addToBackStack("tag").commit();
+
         View view = getActivity().getCurrentFocus();
         try {
             if (view != null) {
