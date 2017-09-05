@@ -64,8 +64,15 @@ public class MainActivity extends AppCompatActivity
             Fragment mainFragment = new MainFragment();
             FragmentManager fragmentManager = getFragmentManager();
 
-            Log.e("this method is invoked", fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12));
-            if (fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12).equals("MainFragment")) {
+
+//            if (fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12).equals("MainFragment")) {
+//                Log.e("You are at Mainfragment", "~~~~~~~~~");
+//            }
+//            Log.e("You are also at Mainfragment", fragmentManager.findFragmentById(R.id.content_frame).getClass().getName());
+//
+//
+//            Log.e("this method is invoked", fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12));
+            if (fragmentManager.findFragmentById(R.id.content_frame) instanceof MainFragment) {
 
                 if (doubleBackToExitPressedOnce) {
                     super.onBackPressed();
