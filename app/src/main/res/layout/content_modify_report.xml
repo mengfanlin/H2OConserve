@@ -25,14 +25,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="{Date 17/08/2017}"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/campus"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/spinner_modify_campus"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/building"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/spinner_modify_building"
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/level"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/spinner_modify_level"
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/room"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editText_modify_room"
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description:"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editText_modify_description"
