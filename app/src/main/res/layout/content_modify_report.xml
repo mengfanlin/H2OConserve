@@ -21,7 +21,7 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/textView_report_date"
+                android:id="@+id/textView_modify_report_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="{Date 17/08/2017}"
@@ -71,10 +71,9 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editText_room"
+                android:id="@+id/editText_modify_room"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:entries="@array/room_array"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -87,13 +86,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-
-            <CheckBox
-                android:id="@+id/checkBox_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/checkBox" />
-
             <Button
                 android:id="@+id/button_save_report"
                 android:layout_width="match_parent"

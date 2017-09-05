@@ -14,26 +14,26 @@
         android:background="#ffffff"
         android:orientation="vertical"
         >
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/submit_report_shot"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:scaleType="fitXY"
                 android:scaleX="1.17"
                 android:scaleY="1.1"
-                />
+                app:srcCompat="@drawable/submit_report_shot" />
 
             <ImageButton
-                android:id="@+id/imageButton_reports"
+                android:id="@+id/imageButton_my_reports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -54,7 +54,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton_view_leaks"
-                android:layout_width="179dp"
+                android:layout_width="193dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:scaleType="fitXY"

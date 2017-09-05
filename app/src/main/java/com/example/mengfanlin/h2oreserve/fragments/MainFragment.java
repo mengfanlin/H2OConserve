@@ -24,7 +24,7 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
 
     private View viewMain;
     //private TextView welcomeTextView;
-    private ImageButton imageButtonSubmitReport, imageButtonCheckReports;
+    private ImageButton imageButtonSubmitReport, imageButtonCheckReports, imageButtonCheckLeaksOnMap;
     private NavigationView navigationView;
 
     @Nullable
@@ -37,7 +37,8 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
         getActivity().setTitle("Main Page");
         //welcomeTextView.setText("Welcome to H2O CONSERVE!");
         imageButtonSubmitReport = (ImageButton) viewMain.findViewById(R.id.imageButton_submit);
-        imageButtonCheckReports = (ImageButton) viewMain.findViewById(R.id.imageButton_reports);
+        imageButtonCheckReports = (ImageButton) viewMain.findViewById(R.id.imageButton_my_reports);
+        imageButtonCheckLeaksOnMap = (ImageButton) viewMain.findViewById(R.id.imageButton_view_leaks);
         imageButtonCheckReports.setOnClickListener(new onNavigationButtonsClickedListener());
         imageButtonSubmitReport.setOnClickListener(new onNavigationButtonsClickedListener());
         return viewMain;
@@ -55,14 +56,14 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
             if (id == R.id.imageButton_submit) {
                 drawerItemIndex = 1;
                 fragment = new SupplyReportFragment();
-            } else if (id == R.id.imageButton_reports) {
+            } else if (id == R.id.imageButton_my_reports) {
                 drawerItemIndex = 2;
                 fragment = new CheckReportFragment();
             }
-//            else if (id == R.id.button_report) {
-//                drawerItemIndex = 3;
-//                fragment = new ReportFragment();
-//            }
+            else if (id == R.id.imageButton_view_leaks) {
+                drawerItemIndex = 3;
+                fragment = new ReportMapFragment();
+            }
             navigationView.getMenu().getItem(drawerItemIndex).setChecked(true);
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()

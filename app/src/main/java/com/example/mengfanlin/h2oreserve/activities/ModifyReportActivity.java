@@ -33,7 +33,6 @@ public class ModifyReportActivity extends AppCompatActivity {
 
     private Spinner spinnerCampus, spinnerBuilding, spinnerLevel;
     private Button buttonSave, buttonDelete;
-    private CheckBox checkBox;
     private EditText editTextDescription,editTextRoom;
     private TextView textViewReportDate;
     private int reportId;
@@ -51,14 +50,12 @@ public class ModifyReportActivity extends AppCompatActivity {
         spinnerCampus = (Spinner) findViewById(R.id.spinner_modify_campus);
         spinnerBuilding = (Spinner) findViewById(R.id.spinner_modify_building);
         spinnerLevel = (Spinner) findViewById(R.id.spinner_modify_level);
-        editTextRoom = (EditText) findViewById(R.id.editText_room);
+
         //TextView
-        textViewReportDate = (TextView) findViewById(R.id.textView_report_date);
+        textViewReportDate = (TextView) findViewById(R.id.textView_modify_report_date);
         //EditText
         editTextDescription = (EditText) findViewById(R.id.editText_modify_description);
-        editTextRoom = (EditText) findViewById(R.id.editText_modify_description);
-        //CheckBox
-        checkBox = (CheckBox) findViewById(R.id.checkBox_modify);
+        editTextRoom = (EditText) findViewById(R.id.editText_modify_room);
         //Button
         buttonSave = (Button) findViewById(R.id.button_save_report);
         buttonDelete = (Button) findViewById(R.id.button_delete_report);
@@ -77,10 +74,12 @@ public class ModifyReportActivity extends AppCompatActivity {
             }
         });
 
+        chosenReport = new Report();
         //receive info by intent
         Bundle bundle = getIntent().getExtras();
         //friendship = (Friendship) bundle.getSerializable("Friendship");
         chosenReport = (Report) bundle.getSerializable("chosenReport");
+        Log.e("Chosen Report", chosenReport.toString());
 
         try
         {
@@ -89,8 +88,8 @@ public class ModifyReportActivity extends AppCompatActivity {
                 this.buttonSave.setVisibility(View.GONE);
                 this.buttonDelete.setVisibility(View.GONE);
             }
-            this.reportId = chosenReport.getId();
-            Log.e("ReportId", String.valueOf(this.reportId));
+            reportId = chosenReport.getId();
+            Log.e("chosen ReportId", String.valueOf(reportId));
             displayFriendInformation();
         }
         catch (Exception e)
@@ -182,7 +181,8 @@ public class ModifyReportActivity extends AppCompatActivity {
         ((TextView) spinnerBuilding.getSelectedView()).setError(null);
         ((TextView) spinnerLevel.getSelectedView()).setError(null);
 
-        checkBox.setError(null);
+        editTextRoom.setError(null);
+        editTextDescription.setError(null);
         buttonDelete.setError(null);
         buttonSave.setError(null);
 

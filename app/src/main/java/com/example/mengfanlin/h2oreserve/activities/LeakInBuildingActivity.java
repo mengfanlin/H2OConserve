@@ -37,15 +37,15 @@ public class LeakInBuildingActivity
 
     private void loadData(String paramString) {}
 
-    protected void onCreate(Bundle paramBundle)
+    protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(paramBundle);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leak_in_building);
         this.listView = ((ListView)findViewById(R.id.listView_leak_in_building));
 
         String building = getIntent().getExtras().getString("building");
 
-        setTitle("All Leaks in Building " + paramBundle);
+        setTitle("All Leaks in Building " + building);
 
         reportArrayList = new ArrayList<>();
 
@@ -97,18 +97,13 @@ public class LeakInBuildingActivity
 
         @Override
         protected void onPostExecute(String message) {
-            if (message.startsWith("F")){
-
+            if (!message.startsWith("F")){
                 try {
-                    ArrayList<Report> reports = new ArrayList<>();
-
+                    Log.e("message on Post Execute", message);
                     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                    reportArrayList = gson.fromJson(message, new TypeToken<ArrayList<Report>>() {
+                    ArrayList<Report> reports = gson.fromJson(message, new TypeToken<ArrayList<Report>>() {
                     }.getType());
                     reportAdapter.clear();
-                    for (Report r : reportArrayList) {
-                        reports.add(r);
-                    }
                     Log.e("List of Students", reports.toString());
                     reportAdapter.addAll(reports);
                     reportAdapter.notifyDataSetChanged();

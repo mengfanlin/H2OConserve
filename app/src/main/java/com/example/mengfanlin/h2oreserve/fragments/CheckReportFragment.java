@@ -61,6 +61,7 @@ public class CheckReportFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ModifyReportActivity.class);
                 //intent.putExtra("Student", studentArrayList.get(position));
                 intent.putExtra("chosenReport",reportArrayList.get(position));
+                intent.putExtra("classFrom", "CheckReportFragment");
                 startActivity(intent);
             }
         });
@@ -74,8 +75,6 @@ public class CheckReportFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return viewMain;
     }
 
@@ -96,7 +95,6 @@ public class CheckReportFragment extends Fragment {
         }
         //dbManager.deleteAll();
         dbManager.close();
-
         if (sb.toString().equals("")){
             reportAdapter.notifyDataSetChanged();
             Toast.makeText(getActivity().getApplicationContext(), "No reports can be displayed", Toast.LENGTH_LONG);
@@ -140,7 +138,6 @@ public class CheckReportFragment extends Fragment {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
             }
         }.execute(idsString); //TODO use SQLite info
     }
