@@ -3,14 +3,17 @@ package com.example.mengfanlin.h2oreserve.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.mengfanlin.h2oreserve.R;
 import com.example.mengfanlin.h2oreserve.fragments.CheckReportFragment;
@@ -24,6 +27,8 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,39 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+
+            Fragment mainFragment = new MainFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+
+            Log.e("this method is invoked", fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12));
+            if (fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12).equals("MainFragment")) {
+
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    return;
+                }
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce=false;
+                    }
+                }, 2000);
+                //super.onBackPressed();
+
+            } else {
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, mainFragment)
+                        .commit();
+            }
+
+
         }
     }
 

@@ -41,6 +41,7 @@ public class MainFragment extends Fragment implements BottomNavigationView.OnNav
         imageButtonCheckLeaksOnMap = (ImageButton) viewMain.findViewById(R.id.imageButton_view_leaks);
         imageButtonCheckReports.setOnClickListener(new onNavigationButtonsClickedListener());
         imageButtonSubmitReport.setOnClickListener(new onNavigationButtonsClickedListener());
+        imageButtonCheckLeaksOnMap.setOnClickListener(new onNavigationButtonsClickedListener());
         return viewMain;
     }
 
