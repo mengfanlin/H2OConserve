@@ -70,8 +70,8 @@
                 android:text="@string/room"
                 android:textSize="18sp" />
 
-            <Spinner
-                android:id="@+id/spinner_modify_room"
+            <EditText
+                android:id="@+id/editText_room"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"

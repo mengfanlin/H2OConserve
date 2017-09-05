@@ -1,5 +1,6 @@
 package com.example.mengfanlin.h2oreserve.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mengfanlin.h2oreserve.R;
+import com.example.mengfanlin.h2oreserve.db.DBManager;
 import com.example.mengfanlin.h2oreserve.entities.Report;
 import com.example.mengfanlin.h2oreserve.services.RestClient;
 
@@ -29,12 +31,13 @@ public class ModifyReportActivity extends AppCompatActivity {
     public Report chosenReport;
     public Report modifiedReport;
 
-    private Spinner spinnerCampus, spinnerBuilding, spinnerLevel, spinnerRoom;
+    private Spinner spinnerCampus, spinnerBuilding, spinnerLevel;
     private Button buttonSave, buttonDelete;
     private CheckBox checkBox;
-    private EditText editTextDescription;
+    private EditText editTextDescription,editTextRoom;
     private TextView textViewReportDate;
     private int reportId;
+    private DBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +51,12 @@ public class ModifyReportActivity extends AppCompatActivity {
         spinnerCampus = (Spinner) findViewById(R.id.spinner_modify_campus);
         spinnerBuilding = (Spinner) findViewById(R.id.spinner_modify_building);
         spinnerLevel = (Spinner) findViewById(R.id.spinner_modify_level);
-        spinnerRoom = (Spinner) findViewById(R.id.spinner_modify_room);
+        editTextRoom = (EditText) findViewById(R.id.editText_room);
         //TextView
         textViewReportDate = (TextView) findViewById(R.id.textView_report_date);
         //EditText
         editTextDescription = (EditText) findViewById(R.id.editText_modify_description);
+        editTextRoom = (EditText) findViewById(R.id.editText_modify_description);
         //CheckBox
         checkBox = (CheckBox) findViewById(R.id.checkBox_modify);
         //Button
@@ -77,9 +81,23 @@ public class ModifyReportActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         //friendship = (Friendship) bundle.getSerializable("Friendship");
         chosenReport = (Report) bundle.getSerializable("chosenReport");
-        reportId = chosenReport.getId();
-        Log.e("ReportId", String.valueOf(reportId));
-        displayFriendInformation();
+
+        try
+        {
+            if (bundle.getString("classFrom").equals("LeakInBuildingActivity"))
+            {
+                this.buttonSave.setVisibility(View.GONE);
+                this.buttonDelete.setVisibility(View.GONE);
+            }
+            this.reportId = chosenReport.getId();
+            Log.e("ReportId", String.valueOf(this.reportId));
+            displayFriendInformation();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +116,7 @@ public class ModifyReportActivity extends AppCompatActivity {
         setValueToSpinner(chosenReport.getCampus(),spinnerCampus);
         setValueToSpinner(chosenReport.getBuilding(),spinnerBuilding);
         setValueToSpinner(chosenReport.getLevel(),spinnerLevel);
-        setValueToSpinner(chosenReport.getRoom(),spinnerRoom);
+        editTextRoom.setText(chosenReport.getRoom());
         editTextDescription.setText(chosenReport.getDescription());
         String date = sf.format(chosenReport.getDate());
         textViewReportDate.setText("Last Modification Date: " + date);
@@ -131,7 +149,15 @@ public class ModifyReportActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String message) {
                 if (message.equals("This report has been deleted!")) {
-                    //TODO delete in SQLite
+
+                    try {
+                        dbManager = new DBManager(getApplicationContext());
+                        dbManager.open();
+                        dbManager.deleteReportId(reportId);
+                        dbManager.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                 toast.show();
@@ -148,14 +174,14 @@ public class ModifyReportActivity extends AppCompatActivity {
         String campus = spinnerCampus.getSelectedItem().toString();
         String building = spinnerBuilding.getSelectedItem().toString();
         String level = spinnerLevel.getSelectedItem().toString();
-        String room = spinnerRoom.getSelectedItem().toString();
+        String room = editTextRoom.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
 
         // Reset errors
         ((TextView) spinnerCampus.getSelectedView()).setError(null);
         ((TextView) spinnerBuilding.getSelectedView()).setError(null);
         ((TextView) spinnerLevel.getSelectedView()).setError(null);
-        ((TextView) spinnerRoom.getSelectedView()).setError(null);
+
         checkBox.setError(null);
         buttonDelete.setError(null);
         buttonSave.setError(null);
@@ -168,6 +194,12 @@ public class ModifyReportActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(description)) {
             editTextDescription.setError("This field is required!");
             focusView = editTextDescription;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(room)) {
+            editTextRoom.setError("This field is required!");
+            focusView = editTextRoom;
             cancel = true;
         }
 
@@ -189,12 +221,8 @@ public class ModifyReportActivity extends AppCompatActivity {
             focusView = spinnerLevel;
             cancel = true;
         }
-        // Check for a spinner
-        if (spinnerRoom.getSelectedItem().toString().trim().equals("")) {
-            ((TextView)spinnerRoom.getSelectedView()).setError("This field is required!");
-            focusView = spinnerRoom;
-            cancel = true;
-        }
+
+
 
         if (cancel) {
             // There was an error; don't attempt submitting report and focus the first form field with an error
@@ -229,24 +257,8 @@ public class ModifyReportActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                     toast.show();
                     finish();
-//                    if (!message.equals("Failed to get reports")) {
-//
-//                    }
-
                 }
             }.execute(modifiedReport);
-
-//            String newReport[] = new String[5];
-//            newReport[0] = campus;
-//            newReport[1] = building;
-//            newReport[2] = level;
-//            newReport[3] = room;
-//            newReport[4] = description;
-//
-//            SharedPreferences spLoggedInStudent = getActivity().getSharedPreferences("loggedInStudent", Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = spLoggedInStudent.edit();
-//            //editor
-//            Toast.makeText(getActivity(),"Button clicked",Toast.LENGTH_SHORT);
         }
     }
 }

@@ -16,6 +16,7 @@ public class Report implements Serializable {
     public Date date;
     public String description;
     public String status;
+    public String encodedImage;
 
     //default constructor
     public Report(Integer id, String campus, String building, String level, String room, String description, Date date, String status) {
@@ -30,12 +31,13 @@ public class Report implements Serializable {
     }
 
     //constructor for creating report
-    public Report(String campus, String building, String level, String room, String description) {
+    public Report(String campus, String building, String level, String room, String description, String encodedImage) {
         this.campus = campus;
         this.building = building;
         this.level = level;
         this.room = room;
         this.description = description;
+        this.encodedImage = encodedImage;
     }
 
     //constructor for modifying report
@@ -57,14 +59,6 @@ public class Report implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getCampus() {
@@ -99,6 +93,14 @@ public class Report implements Serializable {
         this.room = room;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -107,12 +109,20 @@ public class Report implements Serializable {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getEncodedImage() {
+        return encodedImage;
+    }
+
+    public void setEncodedImage(String encodedImage) {
+        this.encodedImage = encodedImage;
     }
 
     @Override
@@ -126,6 +136,7 @@ public class Report implements Serializable {
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
+                ", encodedImage='" + encodedImage + '\'' +
                 '}';
     }
 }

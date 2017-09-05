@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/H2OReserve.iml" filepath="$PROJECT_DIR$/H2OReserve.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-iteration-1.iml" filepath="$PROJECT_DIR$/android-iteration-1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
