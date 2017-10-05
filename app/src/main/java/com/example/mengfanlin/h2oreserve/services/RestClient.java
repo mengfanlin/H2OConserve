@@ -21,19 +21,19 @@ public class RestClient {
     //private static final String BASE_URI = "http://10.0.0.49:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://10.0.2.2:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://54.252.175.242:8080/H2OIteration1/webresources";
-    private static final String BASE_URI = "http://52.65.107.106/api/reports";
-    private static final String BASE_URI_2 = "http://52.65.107.106/api/building";
+//    private static final String BASE_URI = "http://52.65.107.106/api/reports";
+//    private static final String BASE_URI_2 = "http://52.65.107.106/api/building";
+    private static final String BASE_URI = "https://h2oconserve.tk/api/reports";
+    private static final String BASE_URI_2 = "https://h2oconserve.tk/api/building";
 
     public static String addReport(Report report) {
-
         URL url;
         String textResult = "";
         HttpURLConnection conn = null;
-        final String methodPath="";
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             String stringReportJson = gson.toJson(report);
-            url = new URL(BASE_URI + methodPath);
+            url = new URL(BASE_URI);
             Log.e("url",url.toString());
             Log.e("CreatedReport json",stringReportJson);
             //open the connection

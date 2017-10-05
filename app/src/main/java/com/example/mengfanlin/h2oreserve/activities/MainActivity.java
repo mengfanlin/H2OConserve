@@ -2,10 +2,13 @@ package com.example.mengfanlin.h2oreserve.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.mengfanlin.h2oreserve.R;
+import com.example.mengfanlin.h2oreserve.adapters.AdapterPager;
 import com.example.mengfanlin.h2oreserve.fragments.CheckReportFragment;
 import com.example.mengfanlin.h2oreserve.fragments.MainFragment;
 import com.example.mengfanlin.h2oreserve.fragments.ReportMapFragment;
@@ -114,13 +118,13 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -139,6 +143,12 @@ public class MainActivity extends AppCompatActivity
             fragment = new CheckReportFragment();
         } else if (id == R.id.nav_leaks_map){
             fragment = new ReportMapFragment();
+        } else if (id == R.id.nav_view_data) {
+            Intent i = new Intent(this,ViewDataActivity.class);
+            startActivity(i);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
         }
 
         FragmentManager fragmentManager = getFragmentManager();

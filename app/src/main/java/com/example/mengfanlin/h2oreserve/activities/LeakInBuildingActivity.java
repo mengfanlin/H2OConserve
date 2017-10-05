@@ -24,6 +24,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class LeakInBuildingActivity
@@ -45,7 +46,8 @@ public class LeakInBuildingActivity
 
         String building = getIntent().getExtras().getString("building");
 
-        setTitle("All Leaks in Building " + building);
+        //building = "Building " + building;
+        setTitle("All Leaks in " + building);
 
         reportArrayList = new ArrayList<>();
 
@@ -57,7 +59,7 @@ public class LeakInBuildingActivity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ModifyReportActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CheckReportDetailActivity.class);
                 //intent.putExtra("Student", studentArrayList.get(position));
                 intent.putExtra("chosenReport",reportArrayList.get(position));
                 intent.putExtra("classFrom", "LeakInBuildingActivity");
@@ -100,11 +102,12 @@ public class LeakInBuildingActivity
             if (!message.startsWith("F")){
                 try {
                     Log.e("message on Post Execute", message);
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                    Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
                     ArrayList<Report> reports = gson.fromJson(message, new TypeToken<ArrayList<Report>>() {
                     }.getType());
                     reportAdapter.clear();
                     Log.e("List of Students", reports.toString());
+                    Collections.reverse(reports);
                     reportAdapter.addAll(reports);
                     reportAdapter.notifyDataSetChanged();
                 } catch (JsonSyntaxException e) {

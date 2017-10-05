@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:title="Home Page"
             android:icon="@drawable/ic_home_black_24dp"
-
-            android:title="Home" />
+            />
         <item
             android:id="@+id/nav_supply_report"
-            android:icon="@drawable/ic_pan_tool_black_24dp"
-            android:title="Create Report" />
+            android:title="Submit Report"
+            android:icon="@drawable/ic_black_hand2"/>
         <item
             android:id="@+id/nav_my_reports"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="My Reports" />
+            android:title="My Reports"
+            android:icon="@drawable/ic_my_report"
+            />
         <item
             android:id="@+id/nav_leaks_map"
-            android:icon="@drawable/ic_assessment_black_24dp"
-            android:title="Check All Leaks" />
+            android:title="Check All Leaks"
+            android:icon="@drawable/ic_map1"/>
+        <item
+            android:id="@+id/nav_view_data"
+            android:title="Water Trends"
+            android:icon="@drawable/ic_chart"
+            />
     </group>
 </menu>

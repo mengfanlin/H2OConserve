@@ -28,6 +28,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -62,7 +63,7 @@ public class CheckReportFragment extends Fragment {
                 //intent.putExtra("Student", studentArrayList.get(position));
                 intent.putExtra("chosenReport",reportArrayList.get(position));
                 intent.putExtra("classFrom", "CheckReportFragment");
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
 
@@ -86,7 +87,7 @@ public class CheckReportFragment extends Fragment {
         dbManager.open();
         try {
             ArrayList<String> ids = dbManager.getAllReportIds();
-            Log.e("ids are", ids.toString());
+            Log.e("reversed ids are", ids.toString());
             for (String id : ids) {
                 sb.append(id).append("-");
             }
@@ -96,10 +97,15 @@ public class CheckReportFragment extends Fragment {
         //dbManager.deleteAll();
         dbManager.close();
         if (sb.toString().equals("")){
+            reportAdapter.clear();
             reportAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity().getApplicationContext(), "No reports can be displayed", Toast.LENGTH_LONG);
+
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "You don't have any report!", Toast.LENGTH_SHORT);
+            toast.show();
+            Log.e("No record~~~~", "No record but doesnt refresh");
             return;
         }
+
         String idsString = sb.toString().substring(0, sb.toString().length()-1);
         Log.e("idsString", idsString);
 
@@ -121,13 +127,14 @@ public class CheckReportFragment extends Fragment {
                     if (!response.equals("false")) {
 
                         ArrayList<Report> reports;
-                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
                         reports = gson.fromJson(response, new TypeToken<ArrayList<Report>>() {
                         }.getType());
 
                         reportAdapter.clear();
 
                         Log.e("List of Students", reports.toString());
+                        Collections.reverse(reports);
                         reportAdapter.addAll(reports);
                         reportAdapter.notifyDataSetChanged();
                     } else {
@@ -135,7 +142,7 @@ public class CheckReportFragment extends Fragment {
                         toast.show();
                     }
                 }catch (Exception e) {
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getBaseContext(), e.toString(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
@@ -147,5 +154,6 @@ public class CheckReportFragment extends Fragment {
         super.onResume();
         Log.e("", "onResume()");
         displayAllReports();
+
     }
 }

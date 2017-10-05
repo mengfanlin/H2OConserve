@@ -1,79 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:weightSum="1"
-    android:background="#6fb7ff">
-
-    <LinearLayout
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:weightSum="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical"
-        >
+        android:background="#90CAF9"
+        android:minHeight="605dp">
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:text="Found a Leaking Tap?"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:textSize="23dp"
+            android:id="@+id/textView3"
+            android:layout_marginTop="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-            <ImageButton
-                android:id="@+id/imageButton_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:scaleX="1.17"
-                android:scaleY="1.1"
-                app:srcCompat="@drawable/submit_report_shot" />
-
-            <ImageButton
-                android:id="@+id/imageButton_my_reports"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:scaleX="1.1555"
-                android:scaleY="1.1"
-                app:srcCompat="@drawable/view_report_shot" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            >
+            android:minWidth="180dp"
+            android:minHeight="230dp"
+            android:layout_marginTop="28dp"
+            android:background="#2979FF"
+            android:id="@+id/imageView2"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true" />
 
-            <ImageButton
-                android:id="@+id/imageButton_view_leaks"
-                android:layout_width="193dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:scaleType="fitXY"
-                android:scaleX="1.17"
-                android:scaleY="1.1"
-                app:srcCompat="@drawable/view_current_leaks_shot" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#2979FF"
+            android:src="@drawable/ic_hand"
+            android:id="@+id/imageView3"
+            android:layout_marginTop="76dp"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            />
 
-            <ImageButton
-                android:id="@+id/imageButton_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.5"
-                android:scaleType="fitXY"
-                android:scaleX="1.17"
-                android:scaleY="1.1"
-                app:srcCompat="@drawable/settings_shot" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Report Now!"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:textSize="23dp"
+            android:layout_marginTop="176dp"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/textView2" />
 
-        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#90CAF9"
+            android:src="@drawable/chevron1"
+            android:layout_marginTop="35dp"
+            android:id="@+id/imageView4"
+            android:layout_below="@+id/imageView2"
+            android:layout_centerHorizontal="true" />
 
-    </LinearLayout>
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You've submitted * report(s)!"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:textSize="23dp"
+            android:layout_marginTop="118dp"
+            android:id="@+id/textView4"
+            android:layout_below="@+id/imageView2"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:textSize="23dp"
+            android:id="@+id/textView5"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</ScrollView>

@@ -5,18 +5,20 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -30,6 +32,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -37,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView;
 
 import com.example.mengfanlin.h2oreserve.R;
 import com.example.mengfanlin.h2oreserve.activities.MainActivity;
@@ -49,8 +53,11 @@ import org.w3c.dom.Text;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mengfanlin on 15/08/2017.
@@ -83,26 +90,242 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         viewMain = inflater.inflate(R.layout.fragment_supply_report, container, false);
-        getActivity().setTitle("Submit Report");
+        getActivity().setTitle("Create Report");
         //Spinners
         spinnerCampus = (Spinner) viewMain.findViewById(R.id.spinner_campus);
         spinnerBuilding = (Spinner) viewMain.findViewById(R.id.spinner_building);
         spinnerLevel = (Spinner) viewMain.findViewById(R.id.spinner_level);
 
+        // Set values to campus spinner
+        List<String> CampusList = new ArrayList<>();
+        //CampusList.add("Select a campus...");
+        CampusList.add("Caulfield");
 
-        imageViewTakenPhoto = ((ImageView)this.viewMain.findViewById(R.id.imageView_taken_photo));
+        ArrayAdapter<String> campusSpinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item,CampusList){
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                tv.setTextColor(Color.BLACK);
+                return view;
+            }
+        };
+        campusSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerCampus.setAdapter(campusSpinnerArrayAdapter);
 
+        // Set default spinner to level spinner
+        List<String> defaultLevelList = new ArrayList<>();
+        defaultLevelList.add("Select a level...(*)");
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.spinner_item, defaultLevelList){
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                return view;
+
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.notifyDataSetChanged();
+        spinnerLevel.setAdapter(spinnerArrayAdapter);
+
+        // Set values to building spinner and connect it with next spinner
+        String[] buildings = new String[] {
+                "Select a building...(*)",
+                "Building A (Library)",
+                "Building B",
+                "Building C",
+                "Building D",
+                "Building E",
+                "Building F",
+                "Building G",
+                "Building H",
+                "Building J",
+                "Building K",
+                "Building N",
+                "Building S",
+                "Building T"
+        };
+        List<String> buildingsList = new ArrayList<>(Arrays.asList(buildings));
+
+        ArrayAdapter<String> buildingSpinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item,buildingsList){
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        buildingSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerBuilding.setAdapter(buildingSpinnerArrayAdapter);
+        // Add listener to building spinner
+        spinnerBuilding.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position > 0) {
+                    List<String> list = new ArrayList<>();
+
+                    list.clear(); //reset list
+                    list.add("Select a level...(*)");
+                    list.add("Basement");
+                    // Library
+                    if (position == 1) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building B
+                    if (position == 2) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                    }
+                    // Building C
+                    if (position == 3) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                    }
+                    // Building D
+                    if (position == 4) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building E
+                    if (position == 5) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building F
+                    if (position == 6) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building G
+                    if (position == 7) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building H
+                    if (position == 8) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                        list.add("Level 8");
+                        list.add("Level 9");
+                        list.add("Level 10");
+                    }
+                    // Building J
+                    if (position == 9) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                    }
+                    // Building K
+                    if (position == 10) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                    }
+                    // Building N
+                    if (position == 11) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                    }
+                    // Building S
+                    if (position == 12) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building T
+                    if (position == 13) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                    }
+                    // set list to spinner
+                    setLevelSpinner(list);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+        imageViewTakenPhoto = ((ImageView) this.viewMain.findViewById(R.id.imageView_taken_photo));
         //EditText
         editTextDescription = (EditText) viewMain.findViewById(R.id.editText_description);
         editTextRoom = (EditText) viewMain.findViewById(R.id.editText_room);
-        buttonTakePhoto = ((Button)this.viewMain.findViewById(R.id.button_take_photo));
-        //CheckBox
-        //checkBox = (CheckBox) viewMain.findViewById(R.id.checkBox);
         //Button
+        buttonTakePhoto = ((Button)this.viewMain.findViewById(R.id.button_take_photo));
         buttonSubmit = (Button) viewMain.findViewById(R.id.button_submit);
         //Set listener on button submit
         buttonSubmit.setOnClickListener(this);
         buttonTakePhoto.setOnClickListener(this);
+
+        editTextDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        editTextRoom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
 
         View view = getActivity().getCurrentFocus();
         try {
@@ -117,13 +340,49 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         return viewMain;
     }
 
+    private void setLevelSpinner(List<String> list) {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.spinner_item, list){
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.notifyDataSetChanged();
+        spinnerLevel.setAdapter(spinnerArrayAdapter);
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 0) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                file = FileProvider.getUriForFile(getActivity(), "me.inspiringbits", getOutputMediaFile());
+                file = FileProvider.getUriForFile(getActivity(), "me.authorities", getOutputMediaFile());
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
                 startActivityForResult(intent, RESULT_CAMERA);
             }
@@ -139,16 +398,52 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
 //            startActivityForResult(intent, CAMERA_REQUEST);
 //        }
         if (i == R.id.button_submit) {
-            attemptSubmit();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Submit the report?");
+            //.setTitle(R.string.dialog_title);
+            // Add the buttons
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    attemptSubmit();
+                }
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            // Create the AlertDialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
         if (i == R.id.button_take_photo) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            file = FileProvider.getUriForFile(getActivity(), "me.inspiringbits", getOutputMediaFile());
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
 
+//            if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+//                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA},MY_PERMISSIONS_REQUEST_STORAGE);
+//                return;
+//            }
+
+//            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+//                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA},0);
+//                return;
+//            }
+//
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, 0);
+                return;
+            }
+
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+                return;
+            }
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            file = FileProvider.getUriForFile(getActivity(), "me.authorities", getOutputMediaFile());
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
             startActivityForResult(intent, RESULT_CAMERA);
         }
-
     }
 
     private File getOutputMediaFile(){
@@ -173,14 +468,11 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Uri cameraImg = file;
-//            Uri image = data.getData();
         Log.e("URI", cameraImg.getPath());
         imageViewTakenPhoto.setImageURI(cameraImg);
 
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null){
             //set the selected image to image variable
-
-
 //            //get the current timeStamp and strore that in the time Variable
 //            Long tsLong = System.currentTimeMillis() / 1000;
 //            timestamp = tsLong.toString();
@@ -188,11 +480,17 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    /**
+     * Attempt to submit the report
+     */
     private void attemptSubmit() {
 
         String campus = spinnerCampus.getSelectedItem().toString();
-        String building = spinnerBuilding.getSelectedItem().toString();
+        String building = spinnerBuilding.getSelectedItem().toString().substring(9,10);
+
         String level = spinnerLevel.getSelectedItem().toString();
+        if (!level.equals("Basement"))
+            level = level.substring(6,7);
         String room = editTextRoom.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
         // Reset errors
@@ -209,12 +507,12 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         View focusView = null;
 
         // Check for a description
-        if (TextUtils.isEmpty(description)) {
-            editTextDescription.setError("This field is required!");
-            focusView = editTextDescription;
-            cancel = true;
-        }
-        if (TextUtils.isEmpty(description)) {
+//        if (TextUtils.isEmpty(description)) {
+//            editTextDescription.setError("This field is required!");
+//            focusView = editTextDescription;
+//            cancel = true;
+//        }
+        if (TextUtils.isEmpty(room)) {
             editTextRoom.setError("This field is required!");
             focusView = editTextRoom;
             cancel = true;
@@ -227,14 +525,14 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerBuilding.getSelectedItem().toString().trim().equals("")) {
-            ((TextView)spinnerBuilding.getSelectedView()).setError("This field is required!");
+        if (spinnerBuilding.getSelectedItem().toString().trim().equals("Select a building...")) {
+            ((TextView)spinnerBuilding.getSelectedView()).setError("");
             focusView = spinnerBuilding;
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerLevel.getSelectedItem().toString().trim().equals("")) {
-            ((TextView)spinnerLevel.getSelectedView()).setError("This field is required!");
+        if (spinnerLevel.getSelectedItem().toString().trim().equals("Select a level...")) {
+            ((TextView)spinnerLevel.getSelectedView()).setError("");
             focusView = spinnerLevel;
             cancel = true;
         }
@@ -252,45 +550,45 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
 
                 report = new Report(campus, building, level, room, description, Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
                 Log.e("Report is constructed", this.report.toString());
+            } else {
+                report = new Report(campus, building, level, room, description, null);
             }
 
-                report = new Report(campus, building, level, room, description, null);
-                new AsyncTask<Report, Void, String>() {
-                    @Override
-                    protected String doInBackground(Report... params) {
-                        String message = RestClient.addReport(params[0]);
-                        return message;
-                    }
 
-                    @Override
-                    protected void onPostExecute(String message) {
-
-                        if (!message.startsWith("F")) {
-                            try {
-                                int i = Integer.parseInt(message);
-                                Log.e("Integer is", i + "");
-                                dbManager = new DBManager(getActivity());
-                                dbManager.open();
-                                dbManager.insertReportId(i);
-                                Log.e("Now ids in SQLite are:", dbManager.getAllReportIds().toString());
-                                dbManager.close();
-                                Toast.makeText(SupplyReportFragment.this.getActivity().getApplicationContext(), "Report has been added!", Toast.LENGTH_LONG).show();
-                                //change page to my reports.
-                                Fragment fragment = new CheckReportFragment();
-                                FragmentManager fragmentManager = getActivity().getFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.content_frame, fragment);
-                                fragmentTransaction.addToBackStack(null);
-                                fragmentTransaction.commit();
-                                return;
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                return;
-                            }
+            new AsyncTask<Report, Void, String>() {
+                @Override
+                protected String doInBackground(Report... params) {
+                    String message = RestClient.addReport(params[0]);
+                    return message;
+                }
+                @Override
+                protected void onPostExecute(String message) {
+                    if (!message.startsWith("F")) {
+                        try {
+                            int i = Integer.parseInt(message);
+                            Log.e("Integer is", i + "");
+                            dbManager = new DBManager(getActivity());
+                            dbManager.open();
+                            dbManager.insertReportId(i);
+                            Log.e("Now ids in SQLite are:", dbManager.getAllReportIds().toString());
+                            dbManager.close();
+                            Toast.makeText(SupplyReportFragment.this.getActivity().getApplicationContext(), "Report has been added!", Toast.LENGTH_LONG).show();
+                            //change page to my reports.
+                            Fragment fragment = new CheckReportFragment();
+                            FragmentManager fragmentManager = getActivity().getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.content_frame, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                            return;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return;
                         }
-                        Toast.makeText(SupplyReportFragment.this.getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     }
-                }.execute(report);
+                    Toast.makeText(SupplyReportFragment.this.getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                }
+            }.execute(report);
         }
     }
 }

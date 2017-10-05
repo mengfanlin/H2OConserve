@@ -1,15 +1,24 @@
 package com.example.mengfanlin.h2oreserve.activities;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,7 +33,10 @@ import com.example.mengfanlin.h2oreserve.entities.Report;
 import com.example.mengfanlin.h2oreserve.services.RestClient;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class ModifyReportActivity extends AppCompatActivity {
 
@@ -45,6 +57,9 @@ public class ModifyReportActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        ActionBar actionBar = getActionBar();
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+
         this.setTitle("Modify Your Report");
         //Spinners
         spinnerCampus = (Spinner) findViewById(R.id.spinner_modify_campus);
@@ -60,17 +75,53 @@ public class ModifyReportActivity extends AppCompatActivity {
         buttonSave = (Button) findViewById(R.id.button_save_report);
         buttonDelete = (Button) findViewById(R.id.button_delete_report);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveReport();
+                builder.setMessage("Save the modification?");
+                //.setTitle(R.string.dialog_title);
+                // Add the buttons
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        attemptSave();
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteReport();
+
+                builder2.setMessage("Delete the report?");
+                //.setTitle(R.string.dialog_title);
+                // Add the buttons
+                builder2.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        deleteReport();
+                    }
+                });
+                builder2.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                // Create the AlertDialog
+                AlertDialog dialog2 = builder2.create();
+                dialog2.show();
             }
         });
 
@@ -80,56 +131,276 @@ public class ModifyReportActivity extends AppCompatActivity {
         //friendship = (Friendship) bundle.getSerializable("Friendship");
         chosenReport = (Report) bundle.getSerializable("chosenReport");
         Log.e("Chosen Report", chosenReport.toString());
+        reportId = chosenReport.getId();
+        Log.e("chosen ReportId", String.valueOf(reportId));
 
-        try
-        {
-            if (bundle.getString("classFrom").equals("LeakInBuildingActivity"))
-            {
-                this.buttonSave.setVisibility(View.GONE);
-                this.buttonDelete.setVisibility(View.GONE);
+        // Set values to campus spinner
+        List<String> CampusList = new ArrayList<>();
+        //CampusList.add("Select a campus...");
+        CampusList.add("Caulfield");
+
+        ArrayAdapter<String> campusSpinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item,CampusList){
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                tv.setTextColor(Color.BLACK);
+                return view;
             }
-            reportId = chosenReport.getId();
-            Log.e("chosen ReportId", String.valueOf(reportId));
-            displayFriendInformation();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        };
+        campusSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerCampus.setAdapter(campusSpinnerArrayAdapter);
+
+        // Set default spinner to level spinner
+        List<String> defaultLevelList = new ArrayList<>();
+        defaultLevelList.add("Select a level...");
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                R.layout.spinner_item, defaultLevelList){
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                return view;
+
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.notifyDataSetChanged();
+        spinnerLevel.setAdapter(spinnerArrayAdapter);
+
+        // Set values to building spinner and connect it with next spinner
+        String[] buildings = new String[] {
+                "Select a building...",
+                "Building A (Library)",
+                "Building B",
+                "Building C",
+                "Building D",
+                "Building E",
+                "Building F",
+                "Building G",
+                "Building H",
+                "Building J",
+                "Building K",
+                "Building N",
+                "Building S",
+                "Building T"
+        };
+        List<String> buildingsList = new ArrayList<>(Arrays.asList(buildings));
+
+        ArrayAdapter<String> buildingSpinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item,buildingsList){
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        buildingSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerBuilding.setAdapter(buildingSpinnerArrayAdapter);
+
+        displayReportInformation();
+
+        // Add listener to building spinner
+        spinnerBuilding.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position > 0) {
+                    List<String> list = new ArrayList<>();
+
+                    list.clear(); //reset list
+                    list.add("Select a level...");
+                    list.add("Basement");
+                    // Library
+                    if (position == 1) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building B
+                    if (position == 2) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                    }
+                    // Building C
+                    if (position == 3) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                    }
+                    // Building D
+                    if (position == 4) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building E
+                    if (position == 5) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building F
+                    if (position == 6) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building G
+                    if (position == 7) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building H
+                    if (position == 8) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                        list.add("Level 8");
+                        list.add("Level 9");
+                        list.add("Level 10");
+                    }
+                    // Building J
+                    if (position == 9) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                    }
+                    // Building K
+                    if (position == 10) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                    }
+                    // Building N
+                    if (position == 11) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                    }
+                    // Building S
+                    if (position == 12) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building T
+                    if (position == 13) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                    }
+                    // set list to spinner
+                    setLevelSpinner(list);
+                    String level = chosenReport.getLevel();
+                    if (!level.equals("Basement"))
+                        level = "Level " + level;
+                    Log.e("Level full name is ", level);
+                    setValueToSpinner(level,spinnerLevel);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
-    private void displayFriendInformation() {
+    /**
+     * Set level spinner
+     * @param list the level spinner list of certain building
+     */
+    private void setLevelSpinner(List<String> list) {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                R.layout.spinner_item, list){
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
 
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.notifyDataSetChanged();
+        spinnerLevel.setAdapter(spinnerArrayAdapter);
+    }
+
+    private void displayReportInformation() {
+
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
 
         setValueToSpinner(chosenReport.getCampus(),spinnerCampus);
-        setValueToSpinner(chosenReport.getBuilding(),spinnerBuilding);
-        setValueToSpinner(chosenReport.getLevel(),spinnerLevel);
+        String building = "Building " + chosenReport.getBuilding();
+        if (building.equals("Building A"))
+            building = building + " (Library)";
+        Log.e("Building full name is ", building);
+        // Set values to building spinner and level spinner
+        setValueToSpinner(building,spinnerBuilding);
         editTextRoom.setText(chosenReport.getRoom());
         editTextDescription.setText(chosenReport.getDescription());
         String date = sf.format(chosenReport.getDate());
-        textViewReportDate.setText("Last Modification Date: " + date);
-
+        textViewReportDate.setText("Date added: " + date);
     }
 
     private void setValueToSpinner(String value, Spinner spinner) {
         ArrayAdapter arrayAdapter = (ArrayAdapter) spinner.getAdapter();
         int spinnerPosition = arrayAdapter.getPosition(value);
         spinner.setSelection(spinnerPosition);
-    }
-
-    private void saveReport() {
-        attemptSave();
     }
 
     /**
@@ -148,7 +419,6 @@ public class ModifyReportActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String message) {
                 if (message.equals("This report has been deleted!")) {
-
                     try {
                         dbManager = new DBManager(getApplicationContext());
                         dbManager.open();
@@ -171,8 +441,10 @@ public class ModifyReportActivity extends AppCompatActivity {
     private void attemptSave() {
 
         String campus = spinnerCampus.getSelectedItem().toString();
-        String building = spinnerBuilding.getSelectedItem().toString();
+        String building = spinnerBuilding.getSelectedItem().toString().substring(9,10);
         String level = spinnerLevel.getSelectedItem().toString();
+        if (!level.equals("Basement"))
+            level = level.substring(6,7);
         String room = editTextRoom.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
 
@@ -190,12 +462,12 @@ public class ModifyReportActivity extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a description
-        if (TextUtils.isEmpty(description)) {
-            editTextDescription.setError("This field is required!");
-            focusView = editTextDescription;
-            cancel = true;
-        }
+//        // Check for a description
+//        if (TextUtils.isEmpty(description)) {
+//            editTextDescription.setError("This field is required!");
+//            focusView = editTextDescription;
+//            cancel = true;
+//        }
 
         if (TextUtils.isEmpty(room)) {
             editTextRoom.setError("This field is required!");
@@ -210,33 +482,22 @@ public class ModifyReportActivity extends AppCompatActivity {
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerBuilding.getSelectedItem().toString().trim().equals("")) {
+        if (spinnerBuilding.getSelectedItem().toString().trim().equals("Select a building...")) {
             ((TextView)spinnerBuilding.getSelectedView()).setError("This field is required!");
             focusView = spinnerBuilding;
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerLevel.getSelectedItem().toString().trim().equals("")) {
+        if (spinnerLevel.getSelectedItem().toString().trim().equals("Select a level...")) {
             ((TextView)spinnerLevel.getSelectedView()).setError("This field is required!");
             focusView = spinnerLevel;
             cancel = true;
         }
 
-
-
         if (cancel) {
             // There was an error; don't attempt submitting report and focus the first form field with an error
             focusView.requestFocus();
         } else {
-//            modifiedReport = new Report();
-//            modifiedReport.setCampus(campus);
-//            modifiedReport.setBuilding(building);
-//            modifiedReport.setLevel(level);
-//            modifiedReport.setRoom(room);
-//            modifiedReport.setDescription(description);
-////            modifiedReport.setDate(Calendar.getInstance().getTime());
-////            modifiedReport.setUser("mfl333124@gmail.com");
-//            modifiedReport.setId(reportId);
 
             final Report editedReport = new Report(reportId, campus, building, level, room, description);
             //TODO Validation for modifying the report that has been marked finished.

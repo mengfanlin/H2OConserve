@@ -206,7 +206,7 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
 
             if (!response.startsWith("F")) {
                 try {
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                    Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
                     countReportsList = gson.fromJson(response, new TypeToken<ArrayList<CountReports>>() {
                     }.getType());
                     Log.e("countReports List is", ReportMapFragment.this.countReportsList.toString());
@@ -220,9 +220,8 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
                     Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(getActivity().getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Failed to load data..", Toast.LENGTH_LONG).show();
             }
-
         }
     }
 
@@ -267,7 +266,7 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
             for (Marker marker : markers) {
                 boundsBuilder.include(marker.getPosition());
             }
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 300));
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 250));
         }
     }
 

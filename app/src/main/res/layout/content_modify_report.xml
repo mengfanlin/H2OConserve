@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,84 +25,93 @@
                 android:id="@+id/textView_modify_report_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="{Date 17/08/2017}"
-                android:textSize="20sp"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/campus"
                 android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/spinner_modify_campus"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:entries="@array/campus_array"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/building"
-                android:textSize="20sp" />
+                style="@style/spinner_style" />
 
             <Spinner
                 android:id="@+id/spinner_modify_building"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:entries="@array/building_array"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/level"
-                android:textSize="20sp" />
+                style="@style/spinner_style" />
 
             <Spinner
                 android:id="@+id/spinner_modify_level"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:entries="@array/level_array"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/room"
-                android:textSize="20sp" />
+                style="@style/spinner_style" />
 
-            <EditText
-                android:id="@+id/editText_modify_room"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:entries="@array/room_array"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description:"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editText_modify_description"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/edit_report_room_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                app:counterEnabled="true"
+                app:counterMaxLength="20">
+
+                <EditText
+                    android:id="@+id/editText_modify_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="15dp"
+                    android:ems="10"
+                    android:hint="Room"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textAlignment="center"
+                    android:textSize="18dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/create_report_description_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="100">
+
+                <EditText
+                    android:id="@+id/editText_modify_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="15dp"
+                    android:ems="10"
+                    android:hint="Description"
+                    android:maxLength="100"
+                    android:maxLines="3"
+                    android:paddingTop="5dp"
+                    android:textAlignment="center"
+                    android:textSize="18dp" />
+            </android.support.design.widget.TextInputLayout>
+
             <Button
                 android:id="@+id/button_save_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#2979FF"
                 android:text="Save"
-                android:background="#5ac7fa"
-                android:layout_marginTop="10dp"/>
+                android:textColor="#FFFFFF" />
+
             <Button
                 android:id="@+id/button_delete_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#ff6347"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#FF5722"
                 android:onClick="Delete the friend"
                 android:text="Delete"
-                android:textColor="#fff" />
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

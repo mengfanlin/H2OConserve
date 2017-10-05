@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mengfanlin.h2oreserve.fragments.Tab3Fragment">
+    <RelativeLayout
+        android:paddingTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="510dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you know"
+            android:textSize="18dp"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="how much water can a little drip waste?"
+            android:id="@+id/textView1"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/textView"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of drips per minute:"
+            android:id="@+id/textView2"
+            android:layout_marginTop="36dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true" />
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:id="@+id/spinner_calculator"
+            style="@style/spinner_style"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true">
+        </Spinner>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_drip_per_day"
+            android:text="Drips per day:"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="22dp"
+            android:layout_below="@+id/spinner_calculator"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_alignRight="@+id/textView2"
+            android:layout_alignEnd="@+id/textView2"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_liter_per_day"
+            android:text="Liters per day:"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/tv_drip_per_day"
+            android:layout_marginTop="21dp"
+            android:layout_alignLeft="@+id/tv_drip_per_day"
+            android:layout_alignStart="@+id/tv_drip_per_day"
+            android:layout_alignRight="@+id/tv_drip_per_day"
+            android:layout_alignEnd="@+id/tv_drip_per_day"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_liter_per_day"
+            android:layout_marginTop="20dp"
+            android:text="A leaking tap can waste as much as 20,000 litres of water a year."
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="#F44336"
+            />
+    </RelativeLayout>
+</ScrollView>

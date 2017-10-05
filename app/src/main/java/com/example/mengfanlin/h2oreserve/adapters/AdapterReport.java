@@ -1,6 +1,7 @@
 package com.example.mengfanlin.h2oreserve.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -39,15 +40,29 @@ public class AdapterReport extends ArrayAdapter<Report> {
         // Lookup view for data population
         TextView textViewLocation = (TextView) convertView.findViewById(R.id.textView_location);
         TextView textViewDate = (TextView) convertView.findViewById(R.id.textView_date);
+        TextView textViewRoom = (TextView) convertView.findViewById(R.id.textView_room);
+        TextView textViewStatus = (TextView) convertView.findViewById(R.id.textView_status);
 
 
         // Populate the data into the template view using the data object
 
-        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        textViewLocation.setText("Building " + report.getBuilding() + " " + report.getRoom());
-
-        textViewDate.setText(formatter.format(report.getDate()));
+        String levelInfo = report.getLevel();
+        if (!levelInfo.equals("Basement")) {
+            levelInfo = "Level " + levelInfo;
+        }
+        textViewLocation.setText("Building " + report.getBuilding() + " " + levelInfo);
+        textViewRoom.setText("Room " + report.getRoom());
+        String status = report.getStatus();
+        textViewStatus.setText(status);
+        if (status.toLowerCase().startsWith("p"))
+            textViewStatus.setTextColor(new Color().parseColor("#E53935"));
+        if (status.toLowerCase().startsWith("v"))
+            textViewStatus.setTextColor(new Color().parseColor("#FFD600"));
+        if (status.toLowerCase().startsWith("c"))
+            textViewStatus.setTextColor(new Color().parseColor("#43A047"));
+        textViewDate.setText("Date added: " + formatter.format(report.getDate()));
         // Return the completed view to render on screen
         return convertView;
     }

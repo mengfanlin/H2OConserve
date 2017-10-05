@@ -11,49 +11,11 @@
     <string name="level">Level:</string>
     <string name="room">Room:</string>
     <string name="checkBox">Agree with using your account information</string>
-
-    <string-array name="campus_array">
-        <item>Caulfield</item>
-    </string-array>
-    <string-array name="building_array">
-        <item></item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-        <item>F</item>
-        <item>G</item>
-        <item>H</item>
-        <item>J</item>
-        <item>K</item>
-        <item>N</item>
-        <item>S</item>
-        <item>T</item>
-    </string-array>
-    <string-array name="level_array">
-        <item></item>
-        <item>B</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-
-    </string-array>
-    <string-array name="room_array">
-        <item></item>
-        <item>101</item>
-        <item>102</item>
-        <item>103</item>
-        <item>201</item>
-        <item>202</item>
-        <item>203</item>
-        <item>301</item>
-        <item>302</item>
-        <item>303</item>
-    </string-array>
     <string name="title_activity_modify_report">ModifyReportActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_view_data">ViewDataActivity</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
