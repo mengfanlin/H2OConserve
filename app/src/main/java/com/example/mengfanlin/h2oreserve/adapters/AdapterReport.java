@@ -49,11 +49,18 @@ public class AdapterReport extends ArrayAdapter<Report> {
         Format formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         String levelInfo = report.getLevel();
-        if (!levelInfo.equals("Basement")) {
+        String buildingInfo = report.getBuilding();
+        if (!levelInfo.equals("Basement") && !levelInfo.equals("Ground")) {
             levelInfo = "Level " + levelInfo;
         }
-        textViewLocation.setText("Building " + report.getBuilding() + " " + levelInfo);
-        textViewRoom.setText("Room " + report.getRoom());
+        if (buildingInfo.startsWith("G")){
+            textViewLocation.setText(buildingInfo);
+            textViewRoom.setText(report.getRoom());
+        } else {
+            textViewLocation.setText("Building " + report.getBuilding() + " " + levelInfo);
+            textViewRoom.setText("Room " + report.getRoom());
+        }
+
         String status = report.getStatus();
         textViewStatus.setText(status);
         if (status.toLowerCase().startsWith("p"))

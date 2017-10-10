@@ -47,7 +47,11 @@ public class LeakInBuildingActivity
         String building = getIntent().getExtras().getString("building");
 
         //building = "Building " + building;
-        setTitle("All Leaks in " + building);
+        if (building.equals("Ground Area")) {
+            setTitle("All Leaks on " + building);
+        } else {
+            setTitle("All Leaks in Building " + building);
+        }
 
         reportArrayList = new ArrayList<>();
 

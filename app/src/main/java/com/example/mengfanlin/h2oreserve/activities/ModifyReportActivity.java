@@ -48,7 +48,11 @@ public class ModifyReportActivity extends AppCompatActivity {
     private EditText editTextDescription,editTextRoom;
     private TextView textViewReportDate;
     private int reportId;
+    private String reportBuilding;
+    private String selectedBuilding;
+    private String reportLevel;
     private DBManager dbManager;
+    private boolean firstRunningFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class ModifyReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modify_report);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        firstRunningFlag = true;
         //back function
 //        ActionBar actionBar = getActionBar();
         //actionBar.setDisplayHomeAsUpEnabled(true);
@@ -133,6 +137,8 @@ public class ModifyReportActivity extends AppCompatActivity {
         chosenReport = (Report) bundle.getSerializable("chosenReport");
         Log.e("Chosen Report", chosenReport.toString());
         reportId = chosenReport.getId();
+        reportBuilding = chosenReport.getBuilding();
+        reportLevel = chosenReport.getLevel();
         Log.e("chosen ReportId", String.valueOf(reportId));
 
         // Set values to campus spinner
@@ -155,7 +161,7 @@ public class ModifyReportActivity extends AppCompatActivity {
 
         // Set default spinner to level spinner
         List<String> defaultLevelList = new ArrayList<>();
-        defaultLevelList.add("Select a level...");
+        defaultLevelList.add("Select a level...(*)");
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
                 R.layout.spinner_item, defaultLevelList){
             @Override
@@ -177,7 +183,7 @@ public class ModifyReportActivity extends AppCompatActivity {
 
         // Set values to building spinner and connect it with next spinner
         String[] buildings = new String[] {
-                "Select a building...",
+                "Select a building...(*)",
                 "Building A (Library)",
                 "Building B",
                 "Building C",
@@ -186,11 +192,11 @@ public class ModifyReportActivity extends AppCompatActivity {
                 "Building F",
                 "Building G",
                 "Building H",
-                "Building J",
                 "Building K",
                 "Building N",
                 "Building S",
-                "Building T"
+                "Building T",
+                "Ground Area"
         };
         List<String> buildingsList = new ArrayList<>(Arrays.asList(buildings));
 
@@ -220,7 +226,6 @@ public class ModifyReportActivity extends AppCompatActivity {
         };
         buildingSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerBuilding.setAdapter(buildingSpinnerArrayAdapter);
-
         displayReportInformation();
 
         // Add listener to building spinner
@@ -232,8 +237,7 @@ public class ModifyReportActivity extends AppCompatActivity {
                     List<String> list = new ArrayList<>();
 
                     list.clear(); //reset list
-                    list.add("Select a level...");
-                    list.add("Basement");
+                    list.add("Select a level...(*)");
                     // Library
                     if (position == 1) {
                         list.add("Level 1");
@@ -255,20 +259,23 @@ public class ModifyReportActivity extends AppCompatActivity {
                     if (position == 3) {
                         list.add("Level 1");
                         list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                        list.add("Level 8");
                     }
                     // Building D
                     if (position == 4) {
                         list.add("Level 1");
                         list.add("Level 2");
-                        list.add("Level 3");
-                        list.add("Level 4");
                     }
                     // Building E
                     if (position == 5) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
-                        list.add("Level 4");
                     }
                     // Building F
                     if (position == 6) {
@@ -276,16 +283,19 @@ public class ModifyReportActivity extends AppCompatActivity {
                         list.add("Level 2");
                         list.add("Level 3");
                         list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
                     }
                     // Building G
                     if (position == 7) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
-                        list.add("Level 4");
                     }
                     // Building H
                     if (position == 8) {
+                        list.add("Basement");
+                        list.add("Level 4");
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
@@ -297,51 +307,106 @@ public class ModifyReportActivity extends AppCompatActivity {
                         list.add("Level 9");
                         list.add("Level 10");
                     }
-                    // Building J
+                    // Building K
                     if (position == 9) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building N
+                    if (position == 10) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
                         list.add("Level 4");
                         list.add("Level 5");
                         list.add("Level 6");
-                    }
-                    // Building K
-                    if (position == 10) {
-                        list.add("Level 1");
-                        list.add("Level 2");
-                        list.add("Level 3");
-                    }
-                    // Building N
-                    if (position == 11) {
-                        list.add("Level 1");
-                        list.add("Level 2");
+                        list.add("Level 7");
                     }
                     // Building S
-                    if (position == 12) {
+                    if (position == 11) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
                         list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                        list.add("Level 8");
+                        list.add("Level 9");
+                        list.add("Level 10");
+                        list.add("Level 11");
                     }
                     // Building T
-                    if (position == 13) {
+                    if (position == 12) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
                     }
+                    // Ground Area
+                    if (position == 13) {
+                        list.add("Ground");
+                    }
                     // set list to spinner
                     setLevelSpinner(list);
-                    String level = chosenReport.getLevel();
-                    if (!level.equals("Basement"))
-                        level = "Level " + level;
-                    Log.e("Level full name is ", level);
-                    setValueToSpinner(level,spinnerLevel);
+
+                    //selectedBuilding = spinnerBuilding.getSelectedItem().toString();
+
+                    Log.e("Level full name is ", reportLevel);
+                    if (firstRunningFlag == true) {
+                        if (!reportLevel.equals("Basement") && !reportLevel.equals("Ground") && !reportLevel.startsWith("L")) {
+                            reportLevel = "Level " + reportLevel;
+                        }
+                        //if (getBuildingNameByPosition(position).equals(reportBuilding))
+                        setValueToSpinner(reportLevel, spinnerLevel);
+                        firstRunningFlag = false;
+                    }
+//                    if (!reportLevel.equals("Basement") && !reportLevel.equals("Ground"))
+//                        reportLevel = "Level " + reportLevel;
+//                    Log.e("Level full name is ", reportLevel);
+//                    setValueToSpinner(reportLevel,spinnerLevel);
+
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+    }
+
+    private String getBuildingNameByPosition(int position) {
+        switch (position) {
+            case 1:
+                return "A";
+            case 2:
+                return "B";
+            case 3:
+                return "C";
+            case 4:
+                return "D";
+            case 5:
+                return "E";
+            case 6:
+                return "F";
+            case 7:
+                return "G";
+            case 8:
+                return "H";
+            case 9:
+                return "K";
+            case 10:
+                return "N";
+            case 11:
+                return "S";
+            case 12:
+                return "T";
+            case 13:
+                return "Ground Area";
+            default:
+                return "";
+
+        }
+
 
 
     }
@@ -381,14 +446,21 @@ public class ModifyReportActivity extends AppCompatActivity {
         spinnerLevel.setAdapter(spinnerArrayAdapter);
     }
 
+    /**
+     * display report info when loading
+     */
     private void displayReportInformation() {
 
         SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
 
         setValueToSpinner(chosenReport.getCampus(),spinnerCampus);
-        String building = "Building " + chosenReport.getBuilding();
-        if (building.equals("Building A"))
-            building = building + " (Library)";
+        String building = chosenReport.getBuilding();
+        if (!building.startsWith("G")) {
+            building = "Building " + chosenReport.getBuilding();
+            if (building.equals("Building A"))
+                building = building + " (Library)";
+        }
+
         Log.e("Building full name is ", building);
         // Set values to building spinner and level spinner
         setValueToSpinner(building,spinnerBuilding);
@@ -442,9 +514,13 @@ public class ModifyReportActivity extends AppCompatActivity {
     private void attemptSave() {
 
         String campus = spinnerCampus.getSelectedItem().toString();
-        String building = spinnerBuilding.getSelectedItem().toString().substring(9,10);
+        String building;
+        building = spinnerBuilding.getSelectedItem().toString();
+        if (!building.equals("Ground Area"))
+            building = building.substring(9,10);
+
         String level = spinnerLevel.getSelectedItem().toString();
-        if (!level.equals("Basement"))
+        if (!level.equals("Basement") && !level.equals("Ground"))
             level = level.substring(6,7);
         String room = editTextRoom.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
@@ -483,13 +559,13 @@ public class ModifyReportActivity extends AppCompatActivity {
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerBuilding.getSelectedItem().toString().trim().equals("Select a building...")) {
+        if (spinnerBuilding.getSelectedItem().toString().trim().equals("Select a building...(*)")) {
             ((TextView)spinnerBuilding.getSelectedView()).setError("This field is required!");
             focusView = spinnerBuilding;
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerLevel.getSelectedItem().toString().trim().equals("Select a level...")) {
+        if (spinnerLevel.getSelectedItem().toString().trim().equals("Select a level...(*)")) {
             ((TextView)spinnerLevel.getSelectedView()).setError("This field is required!");
             focusView = spinnerLevel;
             cancel = true;

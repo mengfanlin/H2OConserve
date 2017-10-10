@@ -33,15 +33,15 @@ public class ViewDataActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.setTitle("View Data");
+        this.setTitle("Water Trends");
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         // Add Fragments to adapter one by one
-        adapter.addFragment(new Tab1Fragment(), "Figure1");
+        adapter.addFragment(new Tab3Fragment(), "Figure1");
         adapter.addFragment(new Tab2Fragment(), "Figure2");
-        adapter.addFragment(new Tab3Fragment(), "Figure3");
+        adapter.addFragment(new Tab1Fragment(), "Figure3");
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -81,11 +81,11 @@ public class ViewDataActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
 
             if (position == 0)
-                return "Water Stress Levels";
+                return "Water Leak Calculator";
             if (position == 1)
                 return "Water Usage at Monash";
             if (position == 2)
-                return "Water Leak Calculator";
+                return "Water Stress Levels";
             return "Water Related Open Data";
         }
     }

@@ -1,7 +1,8 @@
 package com.example.mengfanlin.h2oreserve.fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;

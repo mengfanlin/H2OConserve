@@ -1,0 +1,65 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mengfanlin.h2oreserve.fragments.AboutUsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="510dp">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleY="1.1"
+            android:src="@drawable/team_name"
+            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="H2OConserve is an android application that will help Monash University conserve water. With this app, students and staff can quickly and easily report water leaks at the Caulfield campus. The app pinpoints the location of the leak and allows a picture to be added for further information so that maintenance staff can identify and fix water leaks as soon as possible."
+            android:textStyle="bold"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView"
+            android:id="@+id/textView1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact us:\n mfl333124@gmail.com"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginTop="20dp"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Open Data Source:\n Monash water usage - Supplied by Buildings and Property, Monash University \nAustralian water stress - Supplied by WRI (World Resources Institute) \nWater leak calculator - Supplied by DrinkTap.org \nMonash buildings information - Buildings and Property Division, Monash University "
+            android:layout_below="@+id/textView1"
+            android:id="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Copyright © 2017 Octal Software. All Rights Reserved."
+            android:layout_alignParentBottom="true"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+</ScrollView>

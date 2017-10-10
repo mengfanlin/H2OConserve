@@ -41,8 +41,8 @@ public class Tab3Fragment extends Fragment {
         viewMain = inflater.inflate(R.layout.fragment_tab3, container, false);
 
         spinnerCalculator = (Spinner) viewMain.findViewById(R.id.spinner_calculator);
-        tvDripPerDay = (TextView) viewMain.findViewById(R.id.tv_drip_per_day);
-        tvLiterPerDay = (TextView) viewMain.findViewById(R.id.tv_liter_per_day);
+        tvDripPerDay = (TextView) viewMain.findViewById(R.id.tv_leak_per_day);
+        tvLiterPerDay = (TextView) viewMain.findViewById(R.id.tv_leak_per_month);
 
         List<String> dripList = new ArrayList<>();
         dripList.add("1");
@@ -69,28 +69,28 @@ public class Tab3Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    tvDripPerDay.setText("1,440 drips per day");
-                    tvLiterPerDay.setText("0.3 liter per day");
+                    tvDripPerDay.setText("Daily waste in liters:\n0.55");
+                    tvLiterPerDay.setText("Monthly (30 days) waste in liters:\n16.5");
                 }
                 if (position == 1) {
-                    tvDripPerDay.setText("7,200 drips per day");
-                    tvLiterPerDay.setText("2 liters per day");
+                    tvDripPerDay.setText("Daily waste in liters:\n2.73");
+                    tvLiterPerDay.setText("Monthly (30 days) waste in liters:\n81.9");
                 }
                 if (position == 2) {
-                    tvDripPerDay.setText("14,400 drips per day");
-                    tvLiterPerDay.setText("4 liter per day");
+                    tvDripPerDay.setText("Daily waste in liters:\n5.45");
+                    tvLiterPerDay.setText("Monthly (30 days) waste in liters:\n163.5");
                 }
                 if (position == 3) {
-                    tvDripPerDay.setText("43,200 drips per day");
-                    tvLiterPerDay.setText("14 liter per day");
+                    tvDripPerDay.setText("Daily waste in liters:\n16.35");
+                    tvLiterPerDay.setText("Monthly (30 days) waste in liters:\n490.5");
                 }
                 if (position == 4) {
-                    tvDripPerDay.setText("86,400 drips per day");
-                    tvLiterPerDay.setText("28 liter per day");
+                    tvDripPerDay.setText("Daily waste in liters:\n32.71");
+                    tvLiterPerDay.setText("Monthly (30 days) waste in liters:\n981.3");
                 }
                 if (position == 5) {
-                    tvDripPerDay.setText("172,800 drips per day");
-                    tvLiterPerDay.setText("57 liter per day");
+                    tvDripPerDay.setText("Daily waste in liters:\n65.41");
+                    tvLiterPerDay.setText("Monthly (30 days) waste in liters:\n1962.3");
                 }
             }
 

@@ -1,7 +1,7 @@
 package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,7 +68,7 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
     private static final LatLng LAT_LNG_OF_F = new LatLng(-37.87718D, 145.046289D);
     private static final LatLng LAT_LNG_OF_G = new LatLng(-37.876668D, 145.045512D);
     private static final LatLng LAT_LNG_OF_H = new LatLng(-37.876304D, 145.044353D);
-    private static final LatLng LAT_LNG_OF_J = new LatLng(-37.876261D, 145.043558D);
+    private static final LatLng LAT_LNG_OF_Ground = new LatLng(-37.876862, 145.044278);
     private static final LatLng LAT_LNG_OF_K = new LatLng(-37.877521D, 145.044325D);
     private static final LatLng LAT_LNG_OF_N = new LatLng(-37.877439D, 145.043811D);
     private static final LatLng LAT_LNG_OF_S = new LatLng(-37.877135D, 145.043422D);
@@ -152,11 +152,11 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
                         .title("Building " + building).snippet(count + COMBINATION_STRING)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))));
                 break;
-            case "J":
-                Log.e("case J is invoked", building);
+            case "Ground Area":
+                Log.e("case ground are is invoked", building);
                 markers.add(mGoogleMap.addMarker(new MarkerOptions()
-                        .position(LAT_LNG_OF_J)
-                        .title("Building " + building).snippet(count + COMBINATION_STRING)
+                        .position(LAT_LNG_OF_Ground)
+                        .title(building).snippet(count + COMBINATION_STRING)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))));
                 break;
             case "K":
@@ -318,7 +318,14 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
     @Override
     public void onInfoWindowClick(Marker marker) {
         String title = marker.getTitle().toString();
-        String building = title.substring(title.length() - 1, title.length());
+        String building;
+        if (title.equals("Ground Area")) {
+            building = title;
+        }
+        else {
+            building= title.substring(title.length() - 1, title.length());
+        }
+
         Log.e("clicked building", building);
         Intent localIntent = new Intent(getActivity(), LeakInBuildingActivity.class);
         localIntent.putExtra("building", building);

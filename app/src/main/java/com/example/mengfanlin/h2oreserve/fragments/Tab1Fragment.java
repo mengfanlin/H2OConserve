@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.mengfanlin.h2oreserve.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -64,11 +65,16 @@ public class Tab1Fragment extends Fragment {
 //        dataSet.setValueTextColor(1);
         dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextSize(12f);
+        dataSet.setFormSize(12f);
         LineData lineData = new LineData(dataSet);
 
         lineChart.setData(lineData);
         lineChart.animateX(2000);
-
+        //lineChart.getDescription().setEnabled(false);
+        Description d = new Description();
+        d.setText("Year");
+        lineChart.setDescription(d);
 
         XAxis xAxisFromChart = lineChart.getXAxis();
         xAxisFromChart.setDrawAxisLine(true);

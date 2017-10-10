@@ -8,21 +8,32 @@
             />
         <item
             android:id="@+id/nav_supply_report"
-            android:title="Submit Report"
+            android:title="Report Water Leak"
             android:icon="@drawable/ic_black_hand2"/>
         <item
             android:id="@+id/nav_my_reports"
-            android:title="My Reports"
+            android:title="View My Reports"
             android:icon="@drawable/ic_my_report"
             />
         <item
             android:id="@+id/nav_leaks_map"
-            android:title="Check All Leaks"
+            android:title="View All Leaks"
             android:icon="@drawable/ic_map1"/>
+        <!--<item-->
+            <!--android:id="@+id/nav_view_data"-->
+            <!--android:title="Water Trends"-->
+            <!--android:icon="@drawable/ic_chart"-->
+            <!--/>-->
         <item
-            android:id="@+id/nav_view_data"
-            android:title="Water Trends"
+            android:id="@+id/nav_water_trends"
+            android:title="View Water Trends"
             android:icon="@drawable/ic_chart"
             />
+        <item
+            android:id="@+id/nav_about_us"
+            android:title="About Us"
+            android:icon="@drawable/about_us"
+            />
+
     </group>
 </menu>

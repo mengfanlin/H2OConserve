@@ -52,6 +52,7 @@
                     android:textSize="18dp"
                     android:textAlignment="center"
                     android:maxLines="1"
+                    android:inputType="text"
                     android:maxLength="20"/>
 
             </android.support.design.widget.TextInputLayout>

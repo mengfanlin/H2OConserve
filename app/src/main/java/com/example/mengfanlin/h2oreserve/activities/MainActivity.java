@@ -1,7 +1,8 @@
 package com.example.mengfanlin.h2oreserve.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,11 +21,13 @@ import android.widget.Toast;
 
 import com.example.mengfanlin.h2oreserve.R;
 import com.example.mengfanlin.h2oreserve.adapters.AdapterPager;
+import com.example.mengfanlin.h2oreserve.fragments.AboutUsFragment;
 import com.example.mengfanlin.h2oreserve.fragments.CheckReportFragment;
 import com.example.mengfanlin.h2oreserve.fragments.MainFragment;
 import com.example.mengfanlin.h2oreserve.fragments.ReportMapFragment;
 import com.example.mengfanlin.h2oreserve.fragments.SupplyReportFragment;
 
+import com.example.mengfanlin.h2oreserve.fragments.WaterTrendsFragment;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -42,7 +45,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         // fragment main
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, new MainFragment())
                 .commit();
@@ -63,11 +67,8 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-
-
             Fragment mainFragment = new MainFragment();
-            FragmentManager fragmentManager = getFragmentManager();
-
+            FragmentManager fragmentManager = getSupportFragmentManager();
 
 //            if (fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12).equals("MainFragment")) {
 //                Log.e("You are at Mainfragment", "~~~~~~~~~");
@@ -143,15 +144,20 @@ public class MainActivity extends AppCompatActivity
             fragment = new CheckReportFragment();
         } else if (id == R.id.nav_leaks_map){
             fragment = new ReportMapFragment();
-        } else if (id == R.id.nav_view_data) {
-            Intent i = new Intent(this,ViewDataActivity.class);
-            startActivity(i);
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
+        } else if (id == R.id.nav_water_trends){
+            fragment = new WaterTrendsFragment();
+        } else if (id == R.id.nav_about_us){
+            fragment = new AboutUsFragment();
         }
+//        else if (id == R.id.nav_view_data) {
+//            Intent i = new Intent(this,ViewDataActivity.class);
+//            startActivity(i);
+//            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//            drawer.closeDrawer(GravityCompat.START);
+//            return true;
+//        }
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();

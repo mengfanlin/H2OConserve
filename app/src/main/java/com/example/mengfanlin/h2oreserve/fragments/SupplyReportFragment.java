@@ -1,9 +1,9 @@
 package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.Manifest;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -90,7 +90,7 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         viewMain = inflater.inflate(R.layout.fragment_supply_report, container, false);
-        getActivity().setTitle("Create Report");
+        getActivity().setTitle("Report Water Leak");
         //Spinners
         spinnerCampus = (Spinner) viewMain.findViewById(R.id.spinner_campus);
         spinnerBuilding = (Spinner) viewMain.findViewById(R.id.spinner_building);
@@ -146,11 +146,11 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                 "Building F",
                 "Building G",
                 "Building H",
-                "Building J",
                 "Building K",
                 "Building N",
                 "Building S",
-                "Building T"
+                "Building T",
+                "Ground Area"
         };
         List<String> buildingsList = new ArrayList<>(Arrays.asList(buildings));
 
@@ -190,7 +190,6 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
 
                     list.clear(); //reset list
                     list.add("Select a level...(*)");
-                    list.add("Basement");
                     // Library
                     if (position == 1) {
                         list.add("Level 1");
@@ -212,20 +211,23 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                     if (position == 3) {
                         list.add("Level 1");
                         list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                        list.add("Level 8");
                     }
                     // Building D
                     if (position == 4) {
                         list.add("Level 1");
                         list.add("Level 2");
-                        list.add("Level 3");
-                        list.add("Level 4");
                     }
                     // Building E
                     if (position == 5) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
-                        list.add("Level 4");
                     }
                     // Building F
                     if (position == 6) {
@@ -233,16 +235,19 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                         list.add("Level 2");
                         list.add("Level 3");
                         list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
                     }
                     // Building G
                     if (position == 7) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
-                        list.add("Level 4");
                     }
                     // Building H
                     if (position == 8) {
+                        list.add("Basement");
+                        list.add("Level 4");
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
@@ -254,38 +259,45 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                         list.add("Level 9");
                         list.add("Level 10");
                     }
-                    // Building J
+                    // Building K
                     if (position == 9) {
+                        list.add("Level 1");
+                        list.add("Level 2");
+                        list.add("Level 3");
+                        list.add("Level 4");
+                    }
+                    // Building N
+                    if (position == 10) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
                         list.add("Level 4");
                         list.add("Level 5");
                         list.add("Level 6");
-                    }
-                    // Building K
-                    if (position == 10) {
-                        list.add("Level 1");
-                        list.add("Level 2");
-                        list.add("Level 3");
-                    }
-                    // Building N
-                    if (position == 11) {
-                        list.add("Level 1");
-                        list.add("Level 2");
+                        list.add("Level 7");
                     }
                     // Building S
-                    if (position == 12) {
+                    if (position == 11) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
                         list.add("Level 4");
+                        list.add("Level 5");
+                        list.add("Level 6");
+                        list.add("Level 7");
+                        list.add("Level 8");
+                        list.add("Level 9");
+                        list.add("Level 10");
+                        list.add("Level 11");
                     }
                     // Building T
-                    if (position == 13) {
+                    if (position == 12) {
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");
+                    }
+                    if (position == 13) {
+                        list.add("Ground");
                     }
                     // set list to spinner
                     setLevelSpinner(list);
@@ -484,15 +496,22 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
      * Attempt to submit the report
      */
     private void attemptSubmit() {
+        String campus;
+        String building;
+        String level;
+        String room;
+        String description;
 
-        String campus = spinnerCampus.getSelectedItem().toString();
-        String building = spinnerBuilding.getSelectedItem().toString().substring(9,10);
+        campus = spinnerCampus.getSelectedItem().toString();
+        building = spinnerBuilding.getSelectedItem().toString();
+        if (!building.equals("Ground Area"))
+            building = building.substring(9,10);
 
-        String level = spinnerLevel.getSelectedItem().toString();
-        if (!level.equals("Basement"))
+        level = spinnerLevel.getSelectedItem().toString();
+        if (!level.equals("Basement") && !level.equals("Ground"))
             level = level.substring(6,7);
-        String room = editTextRoom.getText().toString().trim();
-        String description = editTextDescription.getText().toString().trim();
+        room = editTextRoom.getText().toString().trim();
+        description = editTextDescription.getText().toString().trim();
         // Reset errors
         ((TextView) spinnerCampus.getSelectedView()).setError(null);
         ((TextView) spinnerBuilding.getSelectedView()).setError(null);
@@ -525,13 +544,13 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerBuilding.getSelectedItem().toString().trim().equals("Select a building...")) {
+        if (spinnerBuilding.getSelectedItem().toString().trim().equals("Select a building...(*)")) {
             ((TextView)spinnerBuilding.getSelectedView()).setError("");
             focusView = spinnerBuilding;
             cancel = true;
         }
         // Check for a spinner
-        if (spinnerLevel.getSelectedItem().toString().trim().equals("Select a level...")) {
+        if (spinnerLevel.getSelectedItem().toString().trim().equals("Select a level...(*)")) {
             ((TextView)spinnerLevel.getSelectedView()).setError("");
             focusView = spinnerLevel;
             cancel = true;
@@ -546,7 +565,6 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                 Bitmap bitmap = ((BitmapDrawable) imageViewTakenPhoto.getDrawable()).getBitmap();
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
-
 
                 report = new Report(campus, building, level, room, description, Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
                 Log.e("Report is constructed", this.report.toString());
@@ -575,7 +593,7 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                             Toast.makeText(SupplyReportFragment.this.getActivity().getApplicationContext(), "Report has been added!", Toast.LENGTH_LONG).show();
                             //change page to my reports.
                             Fragment fragment = new CheckReportFragment();
-                            FragmentManager fragmentManager = getActivity().getFragmentManager();
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.content_frame, fragment);
                             fragmentTransaction.addToBackStack(null);

@@ -9,26 +9,125 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minHeight="510dp"
-        android:padding="20dp"
+        android:padding="15dp"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="90dp"
-            android:gravity="center"
+            android:gravity="left"
+            android:id="@+id/textView1"
+            android:paddingLeft="5dp"
             android:textStyle="bold"
-            android:textSize="18dp"
-
-            android:text="Water stress occurs when the demand for water exceeds the available amount during a certain period or when poor quality restricts its use."/>
+            android:textSize="15dp"
+            android:text="Water stress measures total annual water withdrawals (municipal, industrial, and agricultural) expressed as a percentage of the total annual available blue water. Higher values indicate more competition among users."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Water Stress Level"
+            />
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteY="8dp"
-            tools:layout_editor_absoluteX="8dp"
-            android:minHeight="400dp"
-            android:layout_alignParentBottom="true"
+            android:minHeight="300dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/lineChart"
+            android:id="@+id/textView2"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:text="Water stress level explanation:"
+            />
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+
+            >
+            <TableRow>
+                <TextView
+                    android:background="@drawable/border"
+                    android:minWidth="100dp"
+                    android:text="Stress Level"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:background="@drawable/border"
+                    android:minWidth="200dp"
+                    android:text="Value"
+                    android:gravity="center"
+                    />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="[0-1)"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="Low (0-10%)"
+                    />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="[1-2)"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="Low to medium (10-20%)"
+                    android:gravity="center"
+                    />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="[2-3)"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="Medium to high (20-40%)"
+                    android:gravity="center"
+                    />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="[3-4)"
+                    android:gravity="center"/>
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="High (40-80%)"
+                    android:gravity="center"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="[4-5]"
+                    android:gravity="center"/>
+                <TextView
+                    android:background="@drawable/border"
+                    android:text="Extremely high (>80%)"
+                    android:gravity="center"/>
+            </TableRow>
+        </TableLayout>
     </RelativeLayout>
 </ScrollView>
 

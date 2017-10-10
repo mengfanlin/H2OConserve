@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.example.mengfanlin.h2oreserve.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -103,9 +104,10 @@ public class Tab2Fragment extends Fragment {
 //        barEntries.add(new BarEntry(64879.91f,3));
 //        barEntries.add(new BarEntry(54942.99f,4));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Water Usage by Monash Caulfield/Unit:KL");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Water Usage of Each Year by Monash Caulfield");
         barDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         barDataSet.setColor(Color.BLUE);
+        barDataSet.setValueTextSize(12f);
 
         ArrayList<String> theYears = new ArrayList<>();
         theYears.add("2012");
@@ -115,7 +117,7 @@ public class Tab2Fragment extends Fragment {
         theYears.add("2016");
 
         //implementing IAxisValueFormatter interface to show year values not as float/decimal
-        final String[] years = new String[] { "2012", "2013", "2014", "2015", "2016"};
+        final String[] years = new String[] { "2012", "2013", "2014", "2015", "2016 Year"};
 
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
             @Override
@@ -145,8 +147,10 @@ public class Tab2Fragment extends Fragment {
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setDragEnabled(true);
-
-        barChart.animateY(4000);
+//        Description d = new Description();
+//        d.setText("Year");
+//        barChart.setDescription(d);
+        barChart.animateY(2500);
         barChart.getDescription().setEnabled(false);
 
         return viewMain;

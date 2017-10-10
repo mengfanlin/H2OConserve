@@ -6,6 +6,10 @@ import com.example.mengfanlin.h2oreserve.entities.Report;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -23,6 +27,8 @@ public class RestClient {
     //private static final String BASE_URI = "http://54.252.175.242:8080/H2OIteration1/webresources";
 //    private static final String BASE_URI = "http://52.65.107.106/api/reports";
 //    private static final String BASE_URI_2 = "http://52.65.107.106/api/building";
+//    private static final String BASE_URI = "https://h2oconserve.tk/api/reports";
+//    private static final String BASE_URI_2 = "https://h2oconserve.tk/api/building";
     private static final String BASE_URI = "https://h2oconserve.tk/api/reports";
     private static final String BASE_URI_2 = "https://h2oconserve.tk/api/building";
 
@@ -32,7 +38,15 @@ public class RestClient {
         HttpURLConnection conn = null;
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+            Log.e("Report String",report.toString());
             String stringReportJson = gson.toJson(report);
+
+//            BufferedWriter out2 = new BufferedWriter(new FileWriter("reportRecord.txt"));
+//            out2.write(stringReportJson);  //Replace with the string
+//            //you are trying to write
+//            Log.e("has been written","");
+//            out2.close();
+
             url = new URL(BASE_URI);
             Log.e("url",url.toString());
             Log.e("CreatedReport json",stringReportJson);
@@ -127,24 +141,32 @@ public class RestClient {
             //open the connection
             conn = (HttpURLConnection) url.openConnection();
             //set the timeout
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000); //set the connection method to GET
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(10000);
+            //set the connection method to GET
             conn.setRequestMethod("GET");
             //add http headers to set your response type to json
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
             conn.connect(); // Last added
+            InputStream inputStream = null;
+            String code = String.valueOf(conn.getResponseCode());
+            if (code.startsWith("2")) {
+                inputStream = conn.getInputStream();
+            } else {
+                inputStream = conn.getErrorStream();
+            }
             //Read the response
-            Scanner inStream = new Scanner(conn.getInputStream());
+            Scanner inStream = new Scanner(inputStream);
             //read the input stream and store it as string
             while (inStream.hasNextLine()) {
                 textResult += inStream.nextLine();
             }
-            Log.e("conn response", String.valueOf(conn.getResponseCode()));
+            Log.e("conn response", code);
             Log.e("textResult of get my reports", textResult);
             conn.disconnect();
-            if (conn.getResponseCode() != 200)
-                return "Failed to get reports due to response code is not 200";
+            if (!code.startsWith("2"))
+                return "Failed to get reports due to response code is not 200/204";
             else
                 return textResult;
 
