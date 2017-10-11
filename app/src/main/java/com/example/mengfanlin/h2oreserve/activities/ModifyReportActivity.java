@@ -45,11 +45,9 @@ public class ModifyReportActivity extends AppCompatActivity {
 
     private Spinner spinnerCampus, spinnerBuilding, spinnerLevel;
     private Button buttonSave, buttonDelete;
-    private EditText editTextDescription,editTextRoom;
+    private EditText editTextDescription, editTextRoom;
     private TextView textViewReportDate;
     private int reportId;
-    private String reportBuilding;
-    private String selectedBuilding;
     private String reportLevel;
     private DBManager dbManager;
     private boolean firstRunningFlag;
@@ -61,16 +59,12 @@ public class ModifyReportActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         firstRunningFlag = true;
-        //back function
-//        ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
-
+        // Set title
         this.setTitle("Modify Your Report");
         //Spinners
         spinnerCampus = (Spinner) findViewById(R.id.spinner_modify_campus);
         spinnerBuilding = (Spinner) findViewById(R.id.spinner_modify_building);
         spinnerLevel = (Spinner) findViewById(R.id.spinner_modify_level);
-
         //TextView
         textViewReportDate = (TextView) findViewById(R.id.textView_modify_report_date);
         //EditText
@@ -80,8 +74,8 @@ public class ModifyReportActivity extends AppCompatActivity {
         buttonSave = (Button) findViewById(R.id.button_save_report);
         buttonDelete = (Button) findViewById(R.id.button_delete_report);
 
+        // Alert dialog
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +99,7 @@ public class ModifyReportActivity extends AppCompatActivity {
             }
         });
         final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-
+        // Alert dialog 2
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +131,6 @@ public class ModifyReportActivity extends AppCompatActivity {
         chosenReport = (Report) bundle.getSerializable("chosenReport");
         Log.e("Chosen Report", chosenReport.toString());
         reportId = chosenReport.getId();
-        reportBuilding = chosenReport.getBuilding();
         reportLevel = chosenReport.getLevel();
         Log.e("chosen ReportId", String.valueOf(reportId));
 
@@ -145,9 +138,8 @@ public class ModifyReportActivity extends AppCompatActivity {
         List<String> CampusList = new ArrayList<>();
         //CampusList.add("Select a campus...");
         CampusList.add("Caulfield");
-
         ArrayAdapter<String> campusSpinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item,CampusList){
+                this, R.layout.spinner_item, CampusList) {
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
@@ -163,12 +155,12 @@ public class ModifyReportActivity extends AppCompatActivity {
         List<String> defaultLevelList = new ArrayList<>();
         defaultLevelList.add("Select a level...(*)");
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
-                R.layout.spinner_item, defaultLevelList){
+                R.layout.spinner_item, defaultLevelList) {
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
                 }
@@ -176,13 +168,13 @@ public class ModifyReportActivity extends AppCompatActivity {
 
             }
         };
-
+        // Set spinner style
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerArrayAdapter.notifyDataSetChanged();
         spinnerLevel.setAdapter(spinnerArrayAdapter);
 
         // Set values to building spinner and connect it with next spinner
-        String[] buildings = new String[] {
+        String[] buildings = new String[]{
                 "Select a building...(*)",
                 "Building A (Library)",
                 "Building B",
@@ -199,9 +191,8 @@ public class ModifyReportActivity extends AppCompatActivity {
                 "Ground Area"
         };
         List<String> buildingsList = new ArrayList<>(Arrays.asList(buildings));
-
         ArrayAdapter<String> buildingSpinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item,buildingsList){
+                this, R.layout.spinner_item, buildingsList) {
             @Override
             public boolean isEnabled(int position) {
                 if (position == 0) {
@@ -210,26 +201,28 @@ public class ModifyReportActivity extends AppCompatActivity {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
             }
         };
+        // Set spinner style
         buildingSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerBuilding.setAdapter(buildingSpinnerArrayAdapter);
         displayReportInformation();
 
         // Add listener to building spinner
         spinnerBuilding.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            // Set values to the level spinner
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -369,47 +362,45 @@ public class ModifyReportActivity extends AppCompatActivity {
 
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
-
-    private String getBuildingNameByPosition(int position) {
-        switch (position) {
-            case 1:
-                return "A";
-            case 2:
-                return "B";
-            case 3:
-                return "C";
-            case 4:
-                return "D";
-            case 5:
-                return "E";
-            case 6:
-                return "F";
-            case 7:
-                return "G";
-            case 8:
-                return "H";
-            case 9:
-                return "K";
-            case 10:
-                return "N";
-            case 11:
-                return "S";
-            case 12:
-                return "T";
-            case 13:
-                return "Ground Area";
-            default:
-                return "";
-
-        }
-
-
-
-    }
+//    private String getBuildingNameByPosition(int position) {
+//        switch (position) {
+//            case 1:
+//                return "A";
+//            case 2:
+//                return "B";
+//            case 3:
+//                return "C";
+//            case 4:
+//                return "D";
+//            case 5:
+//                return "E";
+//            case 6:
+//                return "F";
+//            case 7:
+//                return "G";
+//            case 8:
+//                return "H";
+//            case 9:
+//                return "K";
+//            case 10:
+//                return "N";
+//            case 11:
+//                return "S";
+//            case 12:
+//                return "T";
+//            case 13:
+//                return "Ground Area";
+//            default:
+//                return "";
+//
+//        }
+//  }
 
     /**
      * Set level spinner
@@ -570,18 +561,15 @@ public class ModifyReportActivity extends AppCompatActivity {
             focusView = spinnerLevel;
             cancel = true;
         }
-
+        // If no errors, continue
         if (cancel) {
-            // There was an error; don't attempt submitting report and focus the first form field with an error
             focusView.requestFocus();
         } else {
-
             final Report editedReport = new Report(reportId, campus, building, level, room, description);
             //TODO Validation for modifying the report that has been marked finished.
             //Log.e("modifiedReport", modifiedReport.toString());
 
             new AsyncTask<Report, Void, String>(){
-
                 @Override
                 protected String doInBackground(Report...params) {
                     //Log.e("BeforeTransferModifiedReport", modifiedReport.toString());
@@ -589,7 +577,6 @@ public class ModifyReportActivity extends AppCompatActivity {
                     String message = RestClient.updateReport(editedReport,reportId);
                     return message;
                 }
-
                 @Override
                 protected void onPostExecute(String message) {
                     Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);

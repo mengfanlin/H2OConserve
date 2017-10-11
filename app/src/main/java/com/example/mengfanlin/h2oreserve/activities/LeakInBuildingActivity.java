@@ -27,8 +27,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class LeakInBuildingActivity
-        extends AppCompatActivity
+/**
+ *  Activity to show all the leaks in one building
+ */
+public class LeakInBuildingActivity extends AppCompatActivity
 {
     private DBManager dbManager;
     private FindReportsInBuilding findReportsInBuilding;
@@ -54,12 +56,12 @@ public class LeakInBuildingActivity
         }
 
         reportArrayList = new ArrayList<>();
-
         // Create the adapter to convert the array to views
         reportAdapter = new AdapterReport(this, reportArrayList);
         // Attach the adapter to a ListView
         listView.setAdapter(reportAdapter);
 
+        // Listener for the table list
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,7 +72,7 @@ public class LeakInBuildingActivity
                 startActivity(intent);
             }
         });
-
+        // Hide keyboard
         View view = this.getCurrentFocus();
         try {
             if (view != null) {
@@ -80,11 +82,13 @@ public class LeakInBuildingActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         findReportsInBuilding = new FindReportsInBuilding(building);
         findReportsInBuilding.execute();
     }
 
+    /**
+     * Asyn task for getting reports
+     */
     protected class FindReportsInBuilding extends AsyncTask<String, Void, String> {
 
         private String building;
@@ -107,6 +111,7 @@ public class LeakInBuildingActivity
                 try {
                     Log.e("message on Post Execute", message);
                     Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+                    // Transfer data from json to object
                     ArrayList<Report> reports = gson.fromJson(message, new TypeToken<ArrayList<Report>>() {
                     }.getType());
                     reportAdapter.clear();

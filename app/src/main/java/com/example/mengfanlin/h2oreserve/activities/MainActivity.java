@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.mengfanlin.h2oreserve.R;
-import com.example.mengfanlin.h2oreserve.adapters.AdapterPager;
 import com.example.mengfanlin.h2oreserve.fragments.AboutUsFragment;
 import com.example.mengfanlin.h2oreserve.fragments.CheckReportFragment;
 import com.example.mengfanlin.h2oreserve.fragments.MainFragment;
@@ -28,9 +27,6 @@ import com.example.mengfanlin.h2oreserve.fragments.ReportMapFragment;
 import com.example.mengfanlin.h2oreserve.fragments.SupplyReportFragment;
 
 import com.example.mengfanlin.h2oreserve.fragments.WaterTrendsFragment;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -69,14 +65,13 @@ public class MainActivity extends AppCompatActivity
         } else {
             Fragment mainFragment = new MainFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
-
 //            if (fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12).equals("MainFragment")) {
 //                Log.e("You are at Mainfragment", "~~~~~~~~~");
 //            }
 //            Log.e("You are also at Mainfragment", fragmentManager.findFragmentById(R.id.content_frame).getClass().getName());
-//
-//
 //            Log.e("this method is invoked", fragmentManager.findFragmentById(R.id.content_frame).toString().substring(0,12));
+
+            // Back to main page if not in home page or exit app by double click
             if (fragmentManager.findFragmentById(R.id.content_frame) instanceof MainFragment) {
 
                 if (doubleBackToExitPressedOnce) {

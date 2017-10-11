@@ -53,7 +53,7 @@ public class AdapterReport extends ArrayAdapter<Report> {
         if (!levelInfo.equals("Basement") && !levelInfo.equals("Ground")) {
             levelInfo = "Level " + levelInfo;
         }
-        if (buildingInfo.startsWith("G")){
+        if (buildingInfo.startsWith("G") && !buildingInfo.equals("G")){
             textViewLocation.setText(buildingInfo);
             textViewRoom.setText(report.getRoom());
         } else {

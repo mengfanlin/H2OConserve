@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mengfanlin.h2oreserve.R;
-import com.example.mengfanlin.h2oreserve.adapters.AdapterPager;
 
 /**
  * Created by mengfanlin on 26/08/2017.

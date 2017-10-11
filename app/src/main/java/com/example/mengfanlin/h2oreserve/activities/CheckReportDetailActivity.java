@@ -13,6 +13,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Check report details in My Reports page.
+ */
 public class CheckReportDetailActivity extends AppCompatActivity {
 
     public Report chosenReport;
@@ -23,7 +26,7 @@ public class CheckReportDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_report_detail);
-
+        //textViews
         tvCampus = (TextView) findViewById(R.id.textView_check_campus);
         tvBuilding = (TextView) findViewById(R.id.textView_check_building);
         tvLevel = (TextView) findViewById(R.id.textView_check_level);
@@ -31,7 +34,7 @@ public class CheckReportDetailActivity extends AppCompatActivity {
         tvDescription = (TextView) findViewById(R.id.textView_check_description);
         tvDateAdded = (TextView) findViewById(R.id.textView_check_date);
         tvStatus = (TextView) findViewById(R.id.textView_check_status);
-
+        //get the chosen report
         chosenReport = new Report();
         //receive info by intent
         Bundle bundle = getIntent().getExtras();
@@ -47,6 +50,9 @@ public class CheckReportDetailActivity extends AppCompatActivity {
         displayData();
     }
 
+    /**
+     * Display the detailed info of a report
+     */
     private void displayData() {
         tvCampus.setText(chosenReport.getCampus());
         tvBuilding.setText(chosenReport.getBuilding());
