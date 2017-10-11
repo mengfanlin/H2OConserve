@@ -6,6 +6,9 @@ package com.example.mengfanlin.h2oreserve.entities;
 
 import java.io.Serializable;
 
+/**
+ * Object for count reports in each building
+ */
 public class CountReports
         implements Serializable
 {

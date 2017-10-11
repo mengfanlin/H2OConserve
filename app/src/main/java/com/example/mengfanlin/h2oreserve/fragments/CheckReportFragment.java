@@ -33,8 +33,8 @@ import java.util.Iterator;
 
 /**
  * Created by mengfanlin on 15/08/2017.
+ * Check all my reports fragment
  */
-
 public class CheckReportFragment extends Fragment {
 
     private DBManager dbManager;
@@ -49,13 +49,12 @@ public class CheckReportFragment extends Fragment {
         viewMain = inflater.inflate(R.layout.fragment_check_report, container, false);
         getActivity().setTitle("My Reports");
         reportArrayList = new ArrayList<>();
-
         // Create the adapter to convert the array to views
         reportAdapter = new AdapterReport(getActivity(), reportArrayList);
         // Attach the adapter to a ListView
         listView = (ListView) viewMain.findViewById(R.id.listView_check_report);
         listView.setAdapter(reportAdapter);
-
+        // Set listener for the table list
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,7 +65,7 @@ public class CheckReportFragment extends Fragment {
                 startActivityForResult(intent,0);
             }
         });
-
+        // Hide keyboard
         View view = getActivity().getCurrentFocus();
         try {
             if (view != null) {
@@ -79,7 +78,9 @@ public class CheckReportFragment extends Fragment {
         return viewMain;
     }
 
-
+    /**
+     * Display report in list
+     */
     public void displayAllReports() {
 
         StringBuilder sb = new StringBuilder();
@@ -118,21 +119,16 @@ public class CheckReportFragment extends Fragment {
                 Log.e("Response is",response);
                 return response;
             }
-
             @Override
             protected void onPostExecute(String response) {
 
                 try {
-                    //int studentId = Integer.parseInt(loggedInStudentId);
                     if (!response.equals("false")) {
-
                         ArrayList<Report> reports;
                         Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
                         reports = gson.fromJson(response, new TypeToken<ArrayList<Report>>() {
                         }.getType());
-
                         reportAdapter.clear();
-
                         Log.e("List of Students", reports.toString());
                         Collections.reverse(reports);
                         reportAdapter.addAll(reports);
@@ -146,9 +142,10 @@ public class CheckReportFragment extends Fragment {
                     toast.show();
                 }
             }
-        }.execute(idsString); //TODO use SQLite info
+        }.execute(idsString);
     }
 
+    // Reload data
     @Override
     public void onResume() {
         super.onResume();

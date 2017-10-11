@@ -61,6 +61,7 @@ import java.util.List;
 
 /**
  * Created by mengfanlin on 15/08/2017.
+ * Submit report fragment
  */
 
 public class SupplyReportFragment extends Fragment implements View.OnClickListener{
@@ -83,8 +84,6 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
     private View viewMain;
     private Uri file;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -95,12 +94,11 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         spinnerCampus = (Spinner) viewMain.findViewById(R.id.spinner_campus);
         spinnerBuilding = (Spinner) viewMain.findViewById(R.id.spinner_building);
         spinnerLevel = (Spinner) viewMain.findViewById(R.id.spinner_level);
-
         // Set values to campus spinner
         List<String> CampusList = new ArrayList<>();
         //CampusList.add("Select a campus...");
         CampusList.add("Caulfield");
-
+        //Set campus spinner
         ArrayAdapter<String> campusSpinnerArrayAdapter = new ArrayAdapter<String>(
                 getActivity(),R.layout.spinner_item,CampusList){
             @Override
@@ -113,7 +111,6 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         };
         campusSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerCampus.setAdapter(campusSpinnerArrayAdapter);
-
         // Set default spinner to level spinner
         List<String> defaultLevelList = new ArrayList<>();
         defaultLevelList.add("Select a level...(*)");
@@ -128,13 +125,11 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                     tv.setTextColor(Color.GRAY);
                 }
                 return view;
-
             }
         };
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerArrayAdapter.notifyDataSetChanged();
         spinnerLevel.setAdapter(spinnerArrayAdapter);
-
         // Set values to building spinner and connect it with next spinner
         String[] buildings = new String[] {
                 "Select a building...(*)",
@@ -153,7 +148,6 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                 "Ground Area"
         };
         List<String> buildingsList = new ArrayList<>(Arrays.asList(buildings));
-
         ArrayAdapter<String> buildingSpinnerArrayAdapter = new ArrayAdapter<String>(
                 getActivity(),R.layout.spinner_item,buildingsList){
             @Override
@@ -321,6 +315,7 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         buttonSubmit.setOnClickListener(this);
         buttonTakePhoto.setOnClickListener(this);
 
+        //
         editTextDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -352,6 +347,10 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         return viewMain;
     }
 
+    /**
+     * Set level spinner
+     * @param list item list in the spinner
+     */
     private void setLevelSpinner(List<String> list) {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.spinner_item, list){
@@ -383,6 +382,10 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         spinnerLevel.setAdapter(spinnerArrayAdapter);
     }
 
+    /**
+     * Hide keyboard
+     * @param view
+     */
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -401,14 +404,15 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    /**
+     * OnClick method for the buttons
+     * @param v
+     */
     @Override
     public void onClick(View v) {
 
         int i = v.getId();
-//        if (i == R.id.button_take_photo){
-//            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//            startActivityForResult(intent, CAMERA_REQUEST);
-//        }
+        // Submit button listener
         if (i == R.id.button_submit) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Submit the report?");
@@ -429,28 +433,17 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+        // Take photo listener
         if (i == R.id.button_take_photo) {
-
-//            if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-//                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA},MY_PERMISSIONS_REQUEST_STORAGE);
-//                return;
-//            }
-
-//            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-//                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA},0);
-//                return;
-//            }
-//
+            // Ask permissions
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, 0);
                 return;
             }
-
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
                 return;
             }
-
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             file = FileProvider.getUriForFile(getActivity(), "me.authorities", getOutputMediaFile());
             intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
@@ -458,6 +451,10 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    /**
+     * Get media file from mobile photo
+     * @return
+     */
     private File getOutputMediaFile(){
 
         File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
@@ -555,7 +552,7 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
             focusView = spinnerLevel;
             cancel = true;
         }
-
+        // If no errors
         if (cancel) {
             // There was an error; don't attempt submitting report and focus the first form field with an error
             focusView.requestFocus();
@@ -571,7 +568,6 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
             } else {
                 report = new Report(campus, building, level, room, description, null);
             }
-
 
             new AsyncTask<Report, Void, String>() {
                 @Override

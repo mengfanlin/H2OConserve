@@ -19,8 +19,8 @@ import java.util.Map;
 
 /**
  * Created by mengfanlin on 26/08/2017.
+ * Adapter for popup window after selecting the pin on map
  */
-
 public class AdapterLeakInfo implements GoogleMap.InfoWindowAdapter {
 
     private Map<Marker, Report> markerLeaks;

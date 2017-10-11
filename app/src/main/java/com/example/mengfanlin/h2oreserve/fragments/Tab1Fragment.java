@@ -20,6 +20,10 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Tab1 for water stress level in AU
+ *  Reference: MPAndroidChart
+ */
 public class Tab1Fragment extends Fragment {
 
     View viewMain;
@@ -65,10 +69,11 @@ public class Tab1Fragment extends Fragment {
 //        dataSet.setValueTextColor(1);
         dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         dataSet.setColor(Color.BLUE);
+        // Set data size on line
         dataSet.setValueTextSize(12f);
         dataSet.setFormSize(12f);
-        LineData lineData = new LineData(dataSet);
 
+        LineData lineData = new LineData(dataSet);
         lineChart.setData(lineData);
         lineChart.animateX(2000);
         //lineChart.getDescription().setEnabled(false);

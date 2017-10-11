@@ -22,6 +22,10 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 
+/**
+ *  Tab2 for monash water usage
+ *  Reference: MPAndroidChart
+ */
 public class Tab2Fragment extends Fragment {
 
     View viewMain;
@@ -43,66 +47,16 @@ public class Tab2Fragment extends Fragment {
         viewMain = inflater.inflate(R.layout.fragment_tab2, container, false);
         //getActivity().setTitle("Monash Water Usage");
         barChart = (BarChart) viewMain.findViewById(R.id.barChart);
-
         barChart.setDrawBarShadow(false);
         barChart.setDrawValueAboveBar(true);
         barChart.getDescription().setEnabled(false);
-
-        // scaling can now only be done on x- and y-axis separately
-//        barChart.setPinchZoom(false);
-//
-//        barChart.setDrawGridBackground(false);
-        // mChart.setDrawYLabels(false);
-
-
-//        XAxis xAxis = barChart.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setDrawGridLines(false);
-//        xAxis.setGranularity(1f); // only intervals of 1 day
-//        xAxis.setLabelCount(7);
-//
-//
-//        YAxis leftAxis = barChart.getAxisLeft();
-//        leftAxis.setLabelCount(8, false);
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-//        leftAxis.setSpaceTop(15f);
-//        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-//
-//        YAxis rightAxis = barChart.getAxisRight();
-//        rightAxis.setDrawGridLines(false);
-//        rightAxis.setLabelCount(8, false);
-//        rightAxis.setSpaceTop(15f);
-//        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-//
-//        Legend l = barChart.getLegend();
-//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-//        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-//        l.setDrawInside(false);
-//        l.setForm(Legend.LegendForm.SQUARE);
-//        l.setFormSize(9f);
-//        l.setTextSize(11f);
-//        l.setXEntrySpace(4f);
-//         l.setExtra(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-//         "def", "ghj", "ikl", "mno" });
-//         l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-//         "def", "ghj", "ikl", "mno" });
-
-        // mChart.setDrawLegend(false);
-
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-
         //to display five values, and later formatter is used so years will not have decimal values
         float[] xAxis = {0f,1f,2f,3f,4f};
         float[] yAxis = {52542.61f, 63406.65f, 57283.53f, 64879.91f, 54942.99f};
         for (int i=0; i<xAxis.length; i++){
             barEntries.add(new BarEntry(xAxis[i], yAxis[i]));
         }
-//        barEntries.add(new BarEntry(52542.61f,0));
-//        barEntries.add(new BarEntry(63406.65f,1));
-//        barEntries.add(new BarEntry(57283.53f,2));
-//        barEntries.add(new BarEntry(64879.91f,3));
-//        barEntries.add(new BarEntry(54942.99f,4));
 
         BarDataSet barDataSet = new BarDataSet(barEntries, "Water Usage of Each Year by Monash Caulfield");
         barDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);

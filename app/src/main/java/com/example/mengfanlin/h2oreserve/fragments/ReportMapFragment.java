@@ -93,6 +93,11 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
         return viewMain;
     }
 
+    /**
+     * Set pins on map
+     * @param building building number
+     * @param count number of reports in each building
+     */
     public void setMarker(String building, String count){
 
         switch (building) {
@@ -193,6 +198,9 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
         }
     }
 
+    /**
+     *  Count reports in each building
+     */
     protected class CountReportTask extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -200,7 +208,6 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
             String response = RestClient.countReports();
             return response;
         }
-
         @Override
         protected void onPostExecute(String response) {
 
@@ -253,8 +260,9 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
-
-
+    /**
+     * Move camera focusing on all pins on map
+     */
     public void moveCamera() {
         if (markers.size() == 0)
             return;
@@ -270,12 +278,18 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
         }
     }
 
+    /**
+     * Fetch result
+     */
     private void fetchResultFromServer()
     {
         this.countReportTask = new CountReportTask();
         this.countReportTask.execute();
     }
 
+    /**
+     *  Refresh data
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -283,38 +297,10 @@ public class ReportMapFragment extends Fragment implements OnMapReadyCallback, O
         fetchResultFromServer();
     }
 
-//    @Override
-//    public void onLocationChanged(Location location) {
-//        Log.i("google location", location.toString());
-//        currLocationMarker = showCurrentLocation(location);
-//    }
-
-//    protected Marker showCurrentLocation(android.location.Location location) {
-//        if (mGoogleMap == null) return null;
-//
-//        LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
-//
-//        if (currLocationMarker == null) {
-//            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),
-//                    R.drawable.current_location);
-//
-//            MarkerOptions markerOptions = new MarkerOptions()
-//                    .position(point)
-//                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-//                    .anchor(0.5f, 0.5f);
-//
-//            currLocationMarker = mGoogleMap.addMarker(markerOptions);
-//        } else {
-//            currLocationMarker.setPosition(point);
-//            markers.remove(currLocationMarker);
-//        }
-//        markers.add(currLocationMarker);
-//
-//        moveCamera();
-//
-//        return currLocationMarker;
-//    }
-
+    /**
+     * Set window after clicking the pin
+     * @param marker
+     */
     @Override
     public void onInfoWindowClick(Marker marker) {
         String title = marker.getTitle().toString();

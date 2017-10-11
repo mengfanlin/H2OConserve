@@ -57,11 +57,6 @@
         </provider>
 
 
-        <activity
-            android:name=".activities.ViewDataActivity"
-            android:parentActivityName=".activities.MainActivity"
-            android:label="@string/title_activity_view_data"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.CheckReportDetailActivity"></activity>
     </application>
 

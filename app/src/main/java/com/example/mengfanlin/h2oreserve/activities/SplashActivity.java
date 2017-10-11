@@ -9,11 +9,15 @@ import android.view.Window;
 
 import com.example.mengfanlin.h2oreserve.R;
 
+/**
+ * Splash page activity (Welcome page)
+ */
 public class SplashActivity extends Activity {
 
     private Handler mHandler;
     private Runnable mRunnable;
-    private static final long SPLASH_DURATION = 3000L;
+    // set lasting time period, 2s now
+    private static final long SPLASH_DURATION = 2000L;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *  Tab 3 is for drip calculator
+ */
 public class Tab3Fragment extends Fragment {
 
     private Spinner spinnerCalculator;
@@ -39,11 +42,10 @@ public class Tab3Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         viewMain = inflater.inflate(R.layout.fragment_tab3, container, false);
-
         spinnerCalculator = (Spinner) viewMain.findViewById(R.id.spinner_calculator);
         tvDripPerDay = (TextView) viewMain.findViewById(R.id.tv_leak_per_day);
         tvLiterPerDay = (TextView) viewMain.findViewById(R.id.tv_leak_per_month);
-
+        // Set spinner list
         List<String> dripList = new ArrayList<>();
         dripList.add("1");
         dripList.add("5");
@@ -62,9 +64,9 @@ public class Tab3Fragment extends Fragment {
                 return view;
             }
         };
+        // Set spinner style and content
         dripSpinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerCalculator.setAdapter(dripSpinnerArrayAdapter);
-
         spinnerCalculator.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

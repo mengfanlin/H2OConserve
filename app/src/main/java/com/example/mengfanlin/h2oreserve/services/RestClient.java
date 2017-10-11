@@ -16,7 +16,8 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * Created by mengfanlin on 18/08/2017.
+ *  Created by mengfanlin on 18/08/2017.
+ *  RESTful services
  */
 
 public class RestClient {
@@ -25,13 +26,18 @@ public class RestClient {
     //private static final String BASE_URI = "http://10.0.0.49:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://10.0.2.2:8080/H2OIteration1/webresources";
     //private static final String BASE_URI = "http://54.252.175.242:8080/H2OIteration1/webresources";
-//    private static final String BASE_URI = "http://52.65.107.106/api/reports";
-//    private static final String BASE_URI_2 = "http://52.65.107.106/api/building";
-//    private static final String BASE_URI = "https://h2oconserve.tk/api/reports";
-//    private static final String BASE_URI_2 = "https://h2oconserve.tk/api/building";
+    //private static final String BASE_URI = "http://52.65.107.106/api/reports";
+    //private static final String BASE_URI_2 = "http://52.65.107.106/api/building";
+    //private static final String BASE_URI = "https://h2oconserve.tk/api/reports";
+    //private static final String BASE_URI_2 = "https://h2oconserve.tk/api/building";
     private static final String BASE_URI = "https://h2oconserve.tk/api/reports";
     private static final String BASE_URI_2 = "https://h2oconserve.tk/api/building";
 
+    /**
+     * Add report rest service
+     * @param report report created
+     * @return
+     */
     public static String addReport(Report report) {
         URL url;
         String textResult = "";
@@ -88,6 +94,10 @@ public class RestClient {
         }
     }
 
+    /**
+     * Count number of reports of each building
+     * @return result
+     */
     public static String countReports() {
         URL url;
         HttpURLConnection conn = null;
@@ -129,6 +139,11 @@ public class RestClient {
         }
     }
 
+    /**
+     * Get all my reports
+     * @param ids String of my report ids
+     * @return result
+     */
     public static String getMyReports(String ids) {
         URL url;
         HttpURLConnection conn = null;
@@ -178,6 +193,11 @@ public class RestClient {
         }
     }
 
+    /**
+     * Get all the reports in each building
+     * @param building building number
+     * @return result
+     */
     public static String getReportsInBuilding(String building) {
         URL url;
         HttpURLConnection conn = null;
@@ -218,7 +238,11 @@ public class RestClient {
         }
     }
 
-
+    /**
+     *  Delete report by id
+     * @param reportId report id
+     * @return result
+     */
     public static String deleteReport(int reportId){
         //initialise
         URL url;
@@ -255,6 +279,12 @@ public class RestClient {
         }
     }
 
+    /**
+     * Update report
+     * @param report report object
+     * @param reportId report id
+     * @return
+     */
     public static String updateReport(Report report, int reportId){ //TODO
         //initialise
         URL url;

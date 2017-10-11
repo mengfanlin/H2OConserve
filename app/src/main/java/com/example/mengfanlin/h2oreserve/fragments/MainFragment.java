@@ -3,26 +3,17 @@ package com.example.mengfanlin.h2oreserve.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mengfanlin.h2oreserve.R;
-import com.example.mengfanlin.h2oreserve.activities.ViewDataActivity;
 import com.example.mengfanlin.h2oreserve.db.DBManager;
 
 /**
@@ -68,6 +59,9 @@ public class MainFragment extends Fragment {
         return viewMain;
     }
 
+    /**
+     *  Show the number of reports on main page
+     */
     private void showNumOfReports() {
         DBManager dbManager = new DBManager(getActivity());
         dbManager.open();
@@ -89,9 +83,10 @@ public class MainFragment extends Fragment {
         dbManager.close();
     }
 
-
+    /**
+     * Report button listener
+     */
     private class onNavigationButtonsClickedListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             int id = v.getId();
@@ -103,18 +98,7 @@ public class MainFragment extends Fragment {
                 drawerItemIndex = 1;
                 fragment = new SupplyReportFragment();
             }
-//            } else if (id == R.id.imageButton_my_reports) {
-//                drawerItemIndex = 2;
-//                fragment = new CheckReportFragment();
-//            }
-//            else if (id == R.id.imageButton_view_leaks) {
-//                drawerItemIndex = 3;
-//                fragment = new ReportMapFragment();
-//            } else if (id == R.id.imageButton_settings) {
-//                drawerItemIndex = 4;
-//            }
             navigationView.getMenu().getItem(drawerItemIndex).setChecked(true);
-
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, fragment)

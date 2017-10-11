@@ -12,6 +12,7 @@ import com.example.mengfanlin.h2oreserve.R;
 
 /**
  * Created by mengfanlin on 08/10/2017.
+ * About us page
  */
 public class AboutUsFragment extends Fragment {
 

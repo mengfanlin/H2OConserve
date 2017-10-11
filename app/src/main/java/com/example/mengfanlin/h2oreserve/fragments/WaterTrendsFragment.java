@@ -14,6 +14,7 @@ import com.example.mengfanlin.h2oreserve.R;
 
 /**
  * Created by mengfanlin on 08/10/2017.
+ *  Water trends fragment
  */
 public class WaterTrendsFragment extends Fragment {
     View rootView;

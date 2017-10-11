@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import java.util.ArrayList;
 
+/**
+ * SQLite manager
+ */
 public class DBManager
 {
     public static final String DATABASE_NAME = "water.db";
@@ -78,8 +81,8 @@ public class DBManager
     }
 
     /**
-     * open
-     * @return
+     * open db
+     * @return this
      */
     public DBManager open()
     {
@@ -88,7 +91,7 @@ public class DBManager
     }
 
     /**
-     * close
+     * close db
      */
     public void close()
     {

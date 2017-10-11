@@ -21,6 +21,7 @@ import java.util.Date;
 
 /**
  * Created by mengfanlin on 19/08/2017.
+ * Table cell for displaying one report
  */
 
 public class AdapterReport extends ArrayAdapter<Report> {
@@ -42,17 +43,14 @@ public class AdapterReport extends ArrayAdapter<Report> {
         TextView textViewDate = (TextView) convertView.findViewById(R.id.textView_date);
         TextView textViewRoom = (TextView) convertView.findViewById(R.id.textView_room);
         TextView textViewStatus = (TextView) convertView.findViewById(R.id.textView_status);
-
-
         // Populate the data into the template view using the data object
-
         Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-
         String levelInfo = report.getLevel();
         String buildingInfo = report.getBuilding();
         if (!levelInfo.equals("Basement") && !levelInfo.equals("Ground")) {
             levelInfo = "Level " + levelInfo;
         }
+        // If ground
         if (buildingInfo.startsWith("G") && !buildingInfo.equals("G")){
             textViewLocation.setText(buildingInfo);
             textViewRoom.setText(report.getRoom());
@@ -60,7 +58,7 @@ public class AdapterReport extends ArrayAdapter<Report> {
             textViewLocation.setText("Building " + report.getBuilding() + " " + levelInfo);
             textViewRoom.setText("Room " + report.getRoom());
         }
-
+        // Add color for status
         String status = report.getStatus();
         textViewStatus.setText(status);
         if (status.toLowerCase().startsWith("p"))
