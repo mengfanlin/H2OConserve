@@ -325,10 +325,10 @@ public class RestClient {
 
             Log.e("Received code(update): ",new Integer(conn.getResponseCode()).toString());
 
-            return "Report edited accordingly";
+            return "Report updated!";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Failed!";
+            return "Failed to update!";
 
         } finally {
             conn.disconnect();

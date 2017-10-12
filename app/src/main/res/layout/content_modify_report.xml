@@ -1,120 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.mengfanlin.h2oreserve.activities.ModifyReportActivity"
     tools:showIn="@layout/activity_modify_report">
 
-    <ScrollView
-        android:id="@+id/form_sign_up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/form_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:focusableInTouchMode="true">
 
-            <TextView
-                android:id="@+id/textView_modify_report_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="{Date 17/08/2017}"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spinner_modify_campus"
-                style="@style/spinner_style" />
-
-            <Spinner
-                android:id="@+id/spinner_modify_building"
-                style="@style/spinner_style" />
-
-            <Spinner
-                android:id="@+id/spinner_modify_level"
-                style="@style/spinner_style" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/edit_report_room_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true"
-                app:counterMaxLength="20">
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <EditText
-                    android:id="@+id/editText_modify_room"
+                <TextView
+                    android:id="@+id/textView_modify_report_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="{Date 17/08/2017}"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_modify_campus"
+                    style="@style/spinner_style" />
+
+                <Spinner
+                    android:id="@+id/spinner_modify_building"
+                    style="@style/spinner_style" />
+
+                <Spinner
+                    android:id="@+id/spinner_modify_level"
+                    style="@style/spinner_style" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edit_report_room_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="15dp"
-                    android:ems="10"
-                    android:hint="Room/Location (*)"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:paddingTop="5dp"
-                    android:textAlignment="center"
-                    android:textSize="18dp" />
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editText_modify_room"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="15dp"
+                        android:ems="10"
+                        android:hint="Room/Location (*)"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:paddingTop="5dp"
+                        android:textAlignment="center"
+                        android:textSize="18dp" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/create_report_description_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:counterEnabled="true"
-                app:counterMaxLength="100">
+                </android.support.design.widget.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editText_modify_description"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/create_report_description_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="15dp"
-                    android:ems="10"
-                    android:hint="Description (Optional)"
-                    android:maxLength="100"
-                    android:maxLines="3"
-                    android:paddingTop="5dp"
-                    android:textAlignment="center"
-                    android:textSize="18dp" />
-            </android.support.design.widget.TextInputLayout>
+                    app:counterEnabled="true"
+                    app:counterMaxLength="100">
 
-            <Button
-                android:id="@+id/button_save_report"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#2979FF"
-                android:text="Save"
-                android:textColor="#FFFFFF" />
+                    <EditText
+                        android:id="@+id/editText_modify_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="15dp"
+                        android:ems="10"
+                        android:hint="Description (Optional)"
+                        android:maxLength="100"
+                        android:maxLines="3"
+                        android:paddingTop="5dp"
+                        android:textAlignment="center"
+                        android:textSize="18dp" />
+                </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:id="@+id/button_delete_report"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:background="#FF5722"
-                android:onClick="Delete the friend"
-                android:text="Delete"
-                android:textColor="#FFFFFF" />
+                <Button
+                    android:id="@+id/button_save_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#2979FF"
+                    android:text="Save"
+                    android:textColor="#FFFFFF" />
 
-        </LinearLayout>
-    </ScrollView>
+                <Button
+                    android:id="@+id/button_delete_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#FF5722"
+                    android:onClick="Delete the friend"
+                    android:text="Delete"
+                    android:textColor="#FFFFFF" />
 
-</LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="#111111"
+        android:elevation="1dp"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:id="@+id/maskView"/>
+    <ProgressBar
+        android:elevation="2dp"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

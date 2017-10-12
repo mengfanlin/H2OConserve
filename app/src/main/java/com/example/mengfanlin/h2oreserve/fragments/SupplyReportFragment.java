@@ -53,10 +53,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 /**
  * Created by mengfanlin on 15/08/2017.
  * Submit report fragment
@@ -571,6 +567,8 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                 report = new Report(campus, building, level, room, description, null);
             }
 
+            maskView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
             new AsyncTask<Report, Void, String>() {
                 @Override
                 protected String doInBackground(Report... params) {
@@ -581,6 +579,8 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                 @Override
                 protected void onPostExecute(String message) {
 
+                    maskView.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                     if (!message.startsWith("F")) {
                         try {
                             int i = Integer.parseInt(message);
@@ -606,14 +606,9 @@ public class SupplyReportFragment extends Fragment implements View.OnClickListen
                             dbManager.close();
                         }
                     }
-                    Toast.makeText(SupplyReportFragment.this.getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SupplyReportFragment.this.getActivity().getApplicationContext(), "Failed to submit the report!", Toast.LENGTH_SHORT).show();
                 }
             }.execute(report);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 }

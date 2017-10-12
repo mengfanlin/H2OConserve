@@ -45,7 +45,7 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contact us:\n mfl333124@gmail.com"
+            android:text="Contact us:\n teamoctalsoftware@gmail.com"
             android:textSize="15dp"
             android:gravity="center"
             android:textStyle="bold"

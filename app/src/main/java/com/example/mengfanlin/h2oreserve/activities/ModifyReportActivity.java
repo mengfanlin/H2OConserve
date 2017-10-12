@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,8 @@ public class ModifyReportActivity extends AppCompatActivity {
 
     public Report chosenReport;
     public Report modifiedReport;
-
+    private ProgressBar progressBar;
+    private View maskView;
     private Spinner spinnerCampus, spinnerBuilding, spinnerLevel;
     private Button buttonSave, buttonDelete;
     private EditText editTextDescription, editTextRoom;
@@ -73,6 +75,9 @@ public class ModifyReportActivity extends AppCompatActivity {
         //Button
         buttonSave = (Button) findViewById(R.id.button_save_report);
         buttonDelete = (Button) findViewById(R.id.button_delete_report);
+
+        maskView = (View) findViewById(R.id.maskView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // Alert dialog
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -471,7 +476,8 @@ public class ModifyReportActivity extends AppCompatActivity {
      * Delete report
      */
     private void deleteReport() {
-
+        maskView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         new AsyncTask<Integer, Void, String>(){
 
             @Override
@@ -482,6 +488,7 @@ public class ModifyReportActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String message) {
+
                 if (message.equals("This report has been deleted!")) {
                     try {
                         dbManager = new DBManager(getApplicationContext());
@@ -492,6 +499,8 @@ public class ModifyReportActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                maskView.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                 toast.show();
                 finish();
@@ -568,7 +577,8 @@ public class ModifyReportActivity extends AppCompatActivity {
             final Report editedReport = new Report(reportId, campus, building, level, room, description);
             //TODO Validation for modifying the report that has been marked finished.
             //Log.e("modifiedReport", modifiedReport.toString());
-
+            maskView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
             new AsyncTask<Report, Void, String>(){
                 @Override
                 protected String doInBackground(Report...params) {
@@ -579,6 +589,8 @@ public class ModifyReportActivity extends AppCompatActivity {
                 }
                 @Override
                 protected void onPostExecute(String message) {
+                    maskView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                     toast.show();
                     finish();

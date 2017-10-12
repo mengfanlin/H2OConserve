@@ -5,142 +5,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    android:focusableInTouchMode="true"
-    android:clickable="true">
-    <ScrollView
-        android:id="@+id/form_sign_up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:focusableInTouchMode="true"
-        android:clickable="true"
-        >
-        <LinearLayout
+        android:clickable="true">
+        <ScrollView
+            android:id="@+id/form_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <Spinner
-                android:id="@+id/spinner_campus"
-                style="@style/spinner_style"/>
-            <Spinner
-                android:id="@+id/spinner_building"
-                style="@style/spinner_style"
-                />
-
-            <Spinner
-                android:id="@+id/spinner_level"
-                style="@style/spinner_style"
-                />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/create_report_room_layout"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            >
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true"
-                app:counterMaxLength="30">
-                <EditText
-                    android:id="@+id/editText_room"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="15dp"
-                    android:paddingTop="5dp"
-                    android:ems="10"
-                    android:hint="Room/Location (*)"
-                    android:textSize="18dp"
-                    android:textAlignment="center"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:maxLength="30"/>
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/create_report_description_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:counterEnabled="true"
-                app:counterMaxLength="100"
-                >
-
-                <EditText
-                    android:id="@+id/editText_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:paddingTop="5dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="15dp"
-                    android:ems="10"
-                    android:textSize="18dp"
-                    android:hint="Description (Optional)"
-                    android:textAlignment="center"
-                    android:maxLines="3"
-                    android:maxLength="100"
+                <Spinner
+                    android:id="@+id/spinner_campus"
+                    style="@style/spinner_style"/>
+                <Spinner
+                    android:id="@+id/spinner_building"
+                    style="@style/spinner_style"
                     />
-            </android.support.design.widget.TextInputLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/imageView_taken_photo"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="#d0d1d1" />
-                <Button
-                    android:id="@+id/button_take_photo"
-                    android:layout_width="150dp"
+                <Spinner
+                    android:id="@+id/spinner_level"
+                    style="@style/spinner_style"
+                    />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/create_report_room_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="190dp"
-                    android:background="#2979FF"
-                    android:text="Take Photo"
-                    android:layout_alignParentRight="true"
-                    android:textColor="#ffffff"
-                    android:textSize="18dp"
-                    android:layout_marginRight="10dp"/>
-            </RelativeLayout>
+                    app:counterEnabled="true"
+                    app:counterMaxLength="30">
+                    <EditText
+                        android:id="@+id/editText_room"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="15dp"
+                        android:paddingTop="5dp"
+                        android:ems="10"
+                        android:hint="Room/Location (*)"
+                        android:textSize="18dp"
+                        android:textAlignment="center"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:maxLength="30"/>
 
-            <Button
-                android:id="@+id/button_submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Submit"
-                android:textSize="18dp"
-                android:layout_marginTop="20dp"
-                android:background="#2979FF"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textColor="#ffffff"/>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
-    <view
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/create_report_description_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="100"
+                    >
+
+                    <EditText
+                        android:id="@+id/editText_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:paddingTop="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="15dp"
+                        android:ems="10"
+                        android:textSize="18dp"
+                        android:hint="Description (Optional)"
+                        android:textAlignment="center"
+                        android:maxLines="3"
+                        android:maxLength="100"
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/imageView_taken_photo"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="#d0d1d1" />
+                    <Button
+                        android:id="@+id/button_take_photo"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="190dp"
+                        android:background="#2979FF"
+                        android:text="Take Photo"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:layout_marginRight="10dp"/>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:textSize="18dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#2979FF"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ffffff"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha="0.6"
-        app:backgroundTint="@color/place_autocomplete_prediction_secondary_text"
+        android:background="#111111"
+        android:elevation="1dp"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
-        android:id="@+id/maskView" />
+        android:id="@+id/maskView"/>
     <ProgressBar
+        android:elevation="2dp"
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
