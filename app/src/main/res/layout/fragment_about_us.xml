@@ -17,8 +17,9 @@
             android:layout_gravity="center"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="30dp" />
         <TextView
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="H2OConserve is an android application that will help Monash University conserve water. With this app, students and staff can quickly and easily report water leaks at the Caulfield campus. The app pinpoints the location of the leak and allows a picture to be added for further information so that maintenance staff can identify and fix water leaks as soon as possible."
@@ -28,37 +29,40 @@
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/imageView"
-            android:id="@+id/textView1" />
-
+            />
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contact us:\n mfl333124@gmail.com"
-            android:layout_below="@+id/textView2"
-            android:layout_centerHorizontal="true"
-
-            android:layout_marginTop="20dp"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:textStyle="bold"/>
-        <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Open Data Source:\n Monash water usage - Supplied by Buildings and Property, Monash University \nAustralian water stress - Supplied by WRI (World Resources Institute) \nWater leak calculator - Supplied by DrinkTap.org \nMonash buildings information - Buildings and Property Division, Monash University "
             android:layout_below="@+id/textView1"
-            android:id="@+id/textView2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:textSize="15dp"
             android:gravity="center"
             android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact us:\n mfl333124@gmail.com"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/textView2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
             android:text="Copyright © 2017 Octal Software. All Rights Reserved."
             android:layout_alignParentBottom="true"
-            android:gravity="center"/>
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:id="@+id/textView6" />
 
     </RelativeLayout>
 

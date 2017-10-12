@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.mengfanlin.h2oreserve.fragments.Tab2Fragment">
     <RelativeLayout
-        android:padding="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >

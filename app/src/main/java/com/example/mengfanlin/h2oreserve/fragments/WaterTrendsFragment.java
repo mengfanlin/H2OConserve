@@ -39,7 +39,7 @@ public class WaterTrendsFragment extends Fragment {
                 Tab3Fragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("fragment2").setIndicator("Water Usage of Campus"),
                 Tab2Fragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("fragment3").setIndicator("Water Stress Levels of AU"),
+        mTabHost.addTab(mTabHost.newTabSpec("fragment3").setIndicator("Water Stress Levels"),
                 Tab1Fragment.class, null);
         return rootView;
     }
