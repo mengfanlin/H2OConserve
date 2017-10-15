@@ -34,7 +34,6 @@ public class WaterTrendsFragment extends Fragment {
         getActivity().setTitle("Water Trends");
         mTabHost = (FragmentTabHost)rootView.findViewById(android.R.id.tabhost);
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realTabContent);
-
         mTabHost.addTab(mTabHost.newTabSpec("fragment1").setIndicator("Water Leak Calculator"),
                 Tab3Fragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("fragment2").setIndicator("Water Usage of Campus"),
