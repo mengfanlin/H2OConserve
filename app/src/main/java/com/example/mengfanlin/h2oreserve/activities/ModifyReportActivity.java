@@ -293,7 +293,6 @@ public class ModifyReportActivity extends AppCompatActivity {
                     // Building H
                     if (position == 8) {
                         list.add("Basement");
-                        list.add("Level 4");
                         list.add("Level 1");
                         list.add("Level 2");
                         list.add("Level 3");

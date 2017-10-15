@@ -92,13 +92,10 @@ public class MainActivity extends AppCompatActivity
                 //super.onBackPressed();
 
             } else {
-
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, mainFragment)
                         .commit();
             }
-
-
         }
     }
 
